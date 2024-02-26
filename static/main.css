@@ -1,0 +1,19 @@
+:root {
+    --primary-color: #0a1118;
+    --primary-color-highlight: #233d54;
+    --bs-body-bg: #fbf9f6;
+    --bs-body-font-family: 'Montserrat', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ****************** Anchor Tag Custom ********************* */
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--primary-color);
+}

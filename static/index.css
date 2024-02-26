@@ -1,0 +1,72 @@
+@import url("main.css");
+
+
+/* **********************Hero Section ************************ */
+.hero {
+    position: relative;
+    height: 100vh;
+    background-color: var(--primary-color);
+    overflow: hidden;
+}
+
+.index_page_video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.hero_overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--primary-color);
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.hero_content {
+    z-index: 1;
+
+}
+
+
+.hero-scroll-btn {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: var(--bs-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+.hero-scroll-btn:hover {
+    color: var(--bs-light);
+    opacity: 0.8;
+}
+
+.hero-scroll-btn .bi {
+    transition-delay: 0.2s;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(-10px);
+    }
+}

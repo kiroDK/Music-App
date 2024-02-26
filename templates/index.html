@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="../static/indexstyle.css" />
+  </head>
+  <style>
+    .heading {
+      text-align: center;
+      font-family: cursive;
+      font-size: 30px;
+      text-transform: capitalize;
+      color: white;
+      border: 1px solid black;
+      border-radius: 10px;
+      padding: 5px;
+      margin: 10px;
+      transition: color 0.8s;
+    }
+    .heading:hover {
+      color: tomato;
+      background-color: black;
+      transition: color 0.8s;
+    }
+    .navigation {
+      text-align: center;
+      padding: 5px;
+      margin: 10px;
+      border-radius: 10px;
+      /*background-color: gray;*/
+    }
+    a {
+      text-decoration: none;
+      padding: 10px;
+      margin: 10px;
+      font-size: 30px;
+      color: limegreen;
+    }
+    .navigation a:hover {
+      color: dodgerblue;
+      background-color: black;
+      border: 2px solid white;
+      border-radius: 23px;
+      padding: 10px;
+      margin: 10px;
+      transition: color 0.2s;
+    }
+    li {
+      display: inline;
+    }
+    .user_creator_div {
+      text-align: center;
+      color: white;
+      margin-top: 300px;
+      padding: 10px;
+    }
+    .user {
+      padding: 50px;
+      border: 1px solid white;
+      margin: 30px;
+      border-radius: 30px;
+    }
+    .creator {
+      padding: 50px;
+      border: 1px solid white;
+      margin: 30px;
+      border-radius: 30px;
+    }
+    body {
+      background-color: black;
+    }
+    .user:hover {
+      color: tomato;
+      background-color: white;
+      transition: color 0.5s;
+    }
+    .creator:hover {
+      color: tomato;
+      background-color: white;
+      transition: color 0.5s;
+    }
+  </style>
+  <body>
+    <header>
+      <div class="heading">
+        <h1>Music Mania &#127925;</h1>
+      </div>
+    </header>
+    <main>
+      <div class="navigation">
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Music App</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Menu</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="user_creator_div">
+        <ul>
+          <li><a class="user" href="user_signup">User</a></li>
+          <li><a class="creator" href="#">Creator</a></li>
+        </ul>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>
