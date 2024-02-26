@@ -1,111 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Landing Page</title>
-    <link rel="stylesheet" href="../static/indexstyle.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/index.css" />
+    <title>Cloud Beats</title>
   </head>
-  <style>
-    .heading {
-      text-align: center;
-      font-family: cursive;
-      font-size: 30px;
-      text-transform: capitalize;
-      color: white;
-      border: 1px solid black;
-      border-radius: 10px;
-      padding: 5px;
-      margin: 10px;
-      transition: color 0.8s;
-    }
-    .heading:hover {
-      color: tomato;
-      background-color: black;
-      transition: color 0.8s;
-    }
-    .navigation {
-      text-align: center;
-      padding: 5px;
-      margin: 10px;
-      border-radius: 10px;
-      /*background-color: gray;*/
-    }
-    a {
-      text-decoration: none;
-      padding: 10px;
-      margin: 10px;
-      font-size: 30px;
-      color: limegreen;
-    }
-    .navigation a:hover {
-      color: dodgerblue;
-      background-color: black;
-      border: 2px solid white;
-      border-radius: 23px;
-      padding: 10px;
-      margin: 10px;
-      transition: color 0.2s;
-    }
-    li {
-      display: inline;
-    }
-    .user_creator_div {
-      text-align: center;
-      color: white;
-      margin-top: 300px;
-      padding: 10px;
-    }
-    .user {
-      padding: 50px;
-      border: 1px solid white;
-      margin: 30px;
-      border-radius: 30px;
-    }
-    .creator {
-      padding: 50px;
-      border: 1px solid white;
-      margin: 30px;
-      border-radius: 30px;
-    }
-    body {
-      background-color: black;
-    }
-    .user:hover {
-      color: tomato;
-      background-color: white;
-      transition: color 0.5s;
-    }
-    .creator:hover {
-      color: tomato;
-      background-color: white;
-      transition: color 0.5s;
-    }
-  </style>
   <body>
-    <header>
-      <div class="heading">
-        <h1>Music Mania &#127925;</h1>
-      </div>
-    </header>
-    <main>
-      <div class="navigation">
-        <nav>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Music App</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Support</a></li>
-            <li><a href="#">Menu</a></li>
-          </ul>
-        </nav>
-      </div>
+    <div class="container">
+      <nav class="navbar">
+        <div class="left">
+          <img src="#" alt="" />
+        </div>
+        <div class="right">
+          <select name="language" class="language">
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+          </select>
+          <button><a href="user_login">Sign In</a></button>
+        </div>
+      </nav>
 
-      <div class="user_creator_div">
-        <ul>
-          <li><a class="user" href="user_signup">User</a></li>
-          <li><a class="creator" href="#">Creator</a></li>
-        </ul>
+      <div class="title">
+        <div class="content">
+          <h1>Unlimited songs, covers and more.</h1>
+          <h2>Listen anywhere.</h2>
+          <form action="#">
+            <h3>
+              Ready to Start? Enter your email to create or restart your
+              membership. 
+            </h3>
+            <div class="email">
+              <input type="email" name="email" placeholder="Email address" />
+              <button><a href="user_signup">Get Started ></a></button>
+            </div>
+          </form>
+        </div>
       </div>
-    </main>
-    <footer></footer>
+    </div>
   </body>
 </html>
