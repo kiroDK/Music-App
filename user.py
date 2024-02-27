@@ -46,3 +46,16 @@ class UserOperation:
             return 0
         else:
             return 1
+
+    def user_delete(self,email):   #for deleting data into table
+        db=self.connection()
+        mycursor = db.cursor()
+
+        sq = "delete from user where email = %s"
+
+        record=[email]
+        mycursor.execute(sq,record)
+        db.commit()    # insert, delete, display
+        mycursor.close() # close
+        db.close() # close
+        return

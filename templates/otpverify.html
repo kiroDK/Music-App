@@ -15,20 +15,32 @@
       <header>
         <i class="bx bxs-check-shield"></i>
       </header>
-      <h4>Enter OTP Code</h4>
-      <form action="#">
-        <div class="input-field">
-          <input type="number" maxlength="1" onkeyup="moveFocus(this, 1)" />
-          <input type="number" maxlength="1" onkeyup="moveFocus(this, 2)" onkeydown="moveFocusBack(this, 0)" />
-          <input type="number" maxlength="1" onkeyup="moveFocus(this, 3)" onkeydown="moveFocusBack(this, 1)" />
-          <input type="number" maxlength="1" onkeydown="moveFocusBack(this, 2)" />
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+          {{ message }}
         </div>
-        <button>Verify OTP</button>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+      <h5>{{email}}</h5>  
+      <h4>Enter OTP Code</h4>
+
+      <form action="/otpverify" method="post">
+        <div class="input-field">
+          <input name="n1" type="number" maxlength="1" onkeyup="moveFocus(this, 1)" autofocus />
+          <input name="n2" type="number" maxlength="1" onkeyup="moveFocus(this, 2)" onkeydown="moveFocusBack(this, 0)" />
+          <input name="n3" type="number" maxlength="1" onkeyup="moveFocus(this, 3)" onkeydown="moveFocusBack(this, 1)" />
+          <input name="n4" type="number" maxlength="1" onkeydown="moveFocusBack(this, 2)" />
+        </div>
+        <input type="hidden" name="email" value="{{email}}">
+        <button type="submit">Verify OTP</button>
       </form>
       
       <script>
         function moveFocus(currentInput, nextInputIndex) {
-          if (currentInput.value.length >= 1) {
+          if (currentInput.value.length == 1) {
             document.getElementsByClassName('input-field')[0].children[nextInputIndex].focus();
           }
         }

@@ -8,6 +8,7 @@ from myrandom import randomnumber
 app=Flask(__name__)  
 app.secret_key= "df5ge4twfwef32f2"  #attribute
 
+userobj = UserOperation()  # user obj
 validobj = myvalidate()  #validation object
 emailobj = Email(app)  #Email Object
 
@@ -34,23 +35,25 @@ def user_signup():
 
         #---------password Encryption------------#
         e = Encryption()
-        e.convert(password)
         password = e.convert(password)
         #------------------------------------------#
-        userobj = UserOperation()  # obj
         r=userobj.user_check(user_name)
         rc=userobj.user_check(email)
 
         if(r==0 and rc == 0):
+            global otp
             otp = randomnumber()
             subject = "Cloud Beats Email Verification"
             msg="Hi "+fname+"\nYour Email OTP is "+str(otp)+"\nThank You\nCloud Beats"
             emailobj.compose_mail(subject,email,msg)
 
             userobj.user_insert(fname,lname,email,user_name,password)
+
             # return "success"
-            flash("Succesfully Registered.. Login Now")
-            return redirect(url_for("user_login"))
+            # flash("Succesfully Registered.. Login Now")
+            flash("OTP sent to registered Email")
+            # return redirect(url_for("user_login"))
+            return redirect(url_for("otpverify",email=email))
         else:
             if(rc!=0):
                 flash("Email name already exists")
@@ -58,9 +61,33 @@ def user_signup():
                 flash("User name already exists")
             return redirect(url_for("user_signup"))
 
+
+@app.route("/otpverify",methods=["GET", "POST"])
+def otpverify():
+    if("otp" in globals()):
+        if(request.method == "GET"):
+            email = request.args.get('email')
+            return render_template("otpverify.html",email=email)
+        else:
+            n1=request.form['n1']
+            n2=request.form['n2']
+            n3=request.form['n3']
+            n4=request.form['n4'] 
+            otpinput=n1+n2+n3+n4
+            if(str(otp)==otpinput):
+                flash("Successfully registered....Login Now")
+                return redirect(url_for('user_login'))
+            else:
+                email = request.form['email']
+                userobj.user_delete(email)
+                flash("Email verification failed...Register Again")
+                return redirect(url_for('user_signup'))
+    else:
+        return "cannot access this page"
+
 @app.route("/user_login")
 def user_login():
     return render_template("user_login.html")
 
 if __name__ == '__main__':             
-    app.run(debug = True)
+    app.run(debug = True)   
