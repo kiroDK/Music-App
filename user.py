@@ -1,4 +1,5 @@
 import mysql.connector
+from flask import session
 
 class UserOperation:
     def connection(self):  #to connect the user
@@ -59,3 +60,22 @@ class UserOperation:
         mycursor.close() # close
         db.close() # close
         return
+
+    def user_login(self,user_name,password):
+        db=self.connection()
+        mycursor=db.cursor()
+        sq="select fname,user_name from user where user_name=%s and password=%s"
+        record=[user_name,password]
+        mycursor.execute(sq,record)
+        row=mycursor.fetchall()
+        rc=mycursor.rowcount
+
+        mycursor.close()
+        db.close()
+
+        if(rc==0):
+            return 0
+        else:
+            session["user_fname"]=row[0][0]
+            session["user_name"]=row[0][1]
+            return 1

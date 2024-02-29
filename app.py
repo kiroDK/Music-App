@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,flash, redirect, url_for
+from flask import Flask, render_template, request,flash, redirect, url_for, session
 from user import UserOperation
 from encryption import Encryption
 from validate import myvalidate
@@ -85,9 +85,29 @@ def otpverify():
     else:
         return "cannot access this page"
 
-@app.route("/user_login")
+@app.route('/user_login',methods=['GET','POST'])
 def user_login():
-    return render_template("user_login.html")
+    if(request.method=='GET'):
+        return render_template("user_login.html")
+    else:
+        user_name=request.form['user_name']
+        password=request.form['password']
+
+        # PASSWORD ENCRYPTION *****************
+        e=Encryption()
+        password=e.convert(password)
+
+        # ***********************
+        r=userobj.user_login(user_name,password)
+        if(r==0):
+            flash("invalid credentials!!")
+            return redirect(url_for("user_login"))
+        else:
+            return "welcome "+ session["user_fname"]
+
+@app.errorhandler(404)
+def not_found(e):
+    return "NOT FOUND"
 
 if __name__ == '__main__':             
     app.run(debug = True)   

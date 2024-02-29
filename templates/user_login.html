@@ -41,13 +41,13 @@
         {% endwith %}
         <div class="card bg-glass">
           <div class="card-body px-4 py-5 px-md-5">
-            <form>
+            <form action="/user_login" method="post">
               <!-- 2 column grid layout with text inputs for the first and last names -->
               <div class="text-center h4 py-3">LogIn</div>
 
               <!-- Username input -->
               <div class="form-outline mb-4">
-                <input type="username" id="form3Example3" class="form-control" />
+                <input type="text" name="user_name" id="form3Example3" class="form-control" />
                 <label class="form-label" for="form3Example3"
                   >Username
               </div>
@@ -56,6 +56,7 @@
               <div class="form-outline mb-4">
                 <input
                   type="password"
+                  name="password"
                   id="form3Example4"
                   class="form-control"
                 />
