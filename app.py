@@ -103,7 +103,55 @@ def user_login():
             flash("invalid credentials!!")
             return redirect(url_for("user_login"))
         else:
-            return "welcome "+ session["user_fname"]
+            # return "welcome "+ session["user_fname"]
+            return render_template("user_dashboard.html")
+
+
+@app.route("/user_dashboard",methods=['GET','POST'])
+def user_dashboard():
+    if('user_nmae' in session):
+        if(request.method=='GET'):
+            return render_template("user_dashboard.html")
+    else:
+        flash("You cannot access this page..please login")
+        return redirect(url_for("user_login"))
+
+@app.route("/user_layout")
+def user_layout():
+    return render_template("user_layout.html")
+
+
+@app.route("/user_logout",methods=['GET','POST']) #session destroy and then logout ho jayega
+def user_logout():
+    if('user_name' in session):
+        if(request.method=='GET'):
+            session.clear()  # destroy all users session
+            return redirect(url_for("user_login"))
+    else:
+        flash("You cannot access this page..please login")
+        return redirect(url_for("user_login"))
+
+@app.route("/user_profile",methods=['GET','POST']) #session destroy and then logout ho jayega
+def user_profile():
+    if('user_name' in session):
+        if(request.method=='GET'):
+            record=userobj.user_profile()
+            return render_template("user_profile.html",record=record)
+        else:
+            fname = request.form['fname']
+            lname = request.form['lname']
+            userobj.user_update(fname,lname)
+            return redirect(url_for("user_profile")) #url me get method activate hota hai
+
+    else:
+        flash("You cannot access this page..please login")
+        return redirect(url_for("user_login"))
+
+
+#------------------For Testing---------------------------#
+@app.route("/test")
+def testing():
+    return render_template("main_layout.html")
 
 @app.errorhandler(404)
 def not_found(e):
