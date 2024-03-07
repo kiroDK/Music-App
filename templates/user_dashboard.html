@@ -1,7 +1,16 @@
-{% extends "main_layout.html" %}
-
-{% block content %}
-    <h1>User Dashboard</h1>
-    <a href="/user_logout">Logout</a>
-    <a href="/user_profile">Profile</a>
+{% extends "main_layout.html" %} {% block content %}
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: whitesmoke;
+  "
+>
+  <h1>User Dashboard</h1>
+</div>
+{% endblock %} {% block user_buttons %}
+<a class="nav-link" href="/user_profile"> Profile</a>
+<a class="nav-link" href="/user_logout">Logout</a>
 {% endblock %}

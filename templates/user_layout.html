@@ -33,7 +33,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
           <div class="container">
             <!-- Logo -->
-            <a class="navbar-brand fs-4" href="#">Cloud Beats</a>
+            <a class="navbar-brand fs-4" href="/user_login">Cloud Beats</a>
             <!-- Toggle Btn -->
             <button
               class="navbar-toggler shadow-none border-0"
@@ -58,7 +58,7 @@
 
               <div class="offcanvas-header text-white border-bottom">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-                  Cloud Beats
+                  <a href="/user_dashboard">Cloud Beats</a>
                 </h5>
                 <button
                   type="button"
@@ -93,10 +93,14 @@
                 </ul>
                 <!-- Login / Signup -->
                 <div
-                  class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3"
+                  class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-4"
                 >
-                  <a href="/user_profile">
-                    <button>{{session["user_fname"]}}</button>
+                  <a
+                    href="/user_profile"
+                    class="text-white"
+                    style="text-decoration: none"
+                  >
+                    {{session["user_fname"]}}
                   </a>
 
                   <a

@@ -33,7 +33,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
           <div class="container">
             <!-- Logo -->
-            <a class="navbar-brand fs-4" href="#">Cloud Beats</a>
+            <a class="navbar-brand fs-4" href="/user_dashboard">Cloud Beats</a>
             <!-- Toggle Btn -->
             <button
               class="navbar-toggler shadow-none border-0"
@@ -91,25 +91,10 @@
                     <a class="nav-link" href="#contact">Contact</a>
                   </li>
                 </ul>
-                <!-- Login / Signup -->
-                <div
-                  class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3"
-                >
-                  <a
-                    href="#login"
-                    class="text-white"
-                    style="text-decoration: none"
-                    >Login</a
-                  >
-                  <a
-                    href="#signup"
-                    class="text-white text-decoration-none px-3 py-1 rounded-4"
-                    style="background-color: #f94ca4"
-                    >Sign Up</a
-                  >
-                </div>
               </div>
             </div>
+            <!-- User Buttons -->
+            <div class="navbar-nav">{% block user_buttons %}{% endblock %}</div>
           </div>
         </nav>
       </body>

@@ -153,6 +153,10 @@ def user_profile():
 def testing():
     return render_template("main_layout.html")
 
+@app.route("/test1")
+def testing1():
+    return render_template("user_layout.html")
+
 @app.errorhandler(404)
 def not_found(e):
     return "NOT FOUND"
