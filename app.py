@@ -148,6 +148,18 @@ def user_profile():
         return redirect(url_for("user_login"))
 
 
+@app.route('/user_delete', methods=['POST'])
+def user_delete():
+    if 'user_name' in session:
+        userobj.user_account_delete(session['user_name'])
+        session.pop('user_name', None)
+        flash("Account deleted successfully")
+        return redirect(url_for('user_login'))
+    else:
+        return "You must be logged in to delete your account"
+
+
+
 #------------------For Testing---------------------------#
 @app.route("/test")
 def testing():

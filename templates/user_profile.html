@@ -65,10 +65,24 @@
                 <label class="form-label" for="form3Example3">Email address</label>
               </div>
 
+              
               <!-- Submit button -->
               <button type="submit" class="btn btn-primary btn-block mb-4">
                 Update
               </button>
+
+              <!-- Add a margin to create a gap -->
+              <div class="mb-4"></div>
+
+              <form method="POST" action="{{ url_for('user_delete') }}" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+                  <!-- Change the button color to red -->
+                  <button type="submit" class="btn btn-danger btn-block mb-4">
+                      Delete Account
+                  </button>
+              </form>
+            
+              
+
             </form>
             {% endfor %}
           </div>

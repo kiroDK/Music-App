@@ -101,3 +101,17 @@ class UserOperation:
         session['user_fname']=fname
         mycursor.close()
         db.close()
+
+
+    def user_account_delete(self, user_name):   #for deleting user account from the table
+        db=self.connection()
+        mycursor = db.cursor()
+
+        sq = "delete from user where user_name = %s"
+
+        record=[user_name]
+        mycursor.execute(sq,record)
+        db.commit()    # commit the transaction
+        mycursor.close() # close the cursor
+        db.close() # close the connection
+        return
