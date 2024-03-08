@@ -115,3 +115,14 @@ class UserOperation:
         mycursor.close() # close the cursor
         db.close() # close the connection
         return
+
+    def change_password(self, user_name, new_password):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "update user set password=%s where user_name=%s"
+        record = [new_password, user_name]
+        mycursor.execute(sq, record)
+        db.commit()
+        mycursor.close()
+        db.close()
+

@@ -158,6 +158,47 @@ def user_delete():
     else:
         return "You must be logged in to delete your account"
 
+@app.route('/change_password_page', methods=['GET'])
+def change_password_page():
+    if 'user_name' in session:
+        return render_template('change_password_page.html')
+    else:
+        flash('You must be logged in to change your password')
+        return redirect(url_for('user_login'))
+
+
+
+@app.route('/change_password', methods=['POST'])
+def change_password():
+    if 'user_name' in session:
+        user_name = session['user_name']
+        old_password = request.form['old_password']
+        new_password = request.form['new_password']
+
+        # PASSWORD ENCRYPTION for old password
+        e = Encryption()
+        old_password = e.convert(old_password)
+
+        # Check if old password is correct
+        if userobj.user_login(user_name, old_password) == 0:
+            flash('Old password is incorrect')
+            return redirect(url_for('user_dashboard'))
+
+        # Validate the new password here as per your password policy
+
+        # Encrypt the new password
+        new_password = e.convert(new_password)
+
+        # Change the password
+        userobj.change_password(user_name, new_password)
+        flash('Password changed successfully')
+        return redirect(url_for('user_dashboard'))
+    else:
+        flash('You must be logged in to change your password')
+        return redirect(url_for('user_login'))
+
+
+
 
 
 #------------------For Testing---------------------------#
@@ -168,6 +209,10 @@ def testing():
 @app.route("/test1")
 def testing1():
     return render_template("user_layout.html")
+
+@app.route("/test2")
+def testing2():
+    return render_template("change_password_page.html")
 
 @app.errorhandler(404)
 def not_found(e):

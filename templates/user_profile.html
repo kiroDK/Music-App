@@ -70,19 +70,18 @@
               <button type="submit" class="btn btn-primary btn-block mb-4">
                 Update
               </button>
+            </form>
 
-              <!-- Add a margin to create a gap -->
-              <div class="mb-4"></div>
-
-              <form method="POST" action="{{ url_for('user_delete') }}" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
-                  <!-- Change the button color to red -->
-                  <button type="submit" class="btn btn-danger btn-block mb-4">
-                      Delete Account
-                  </button>
-              </form>
-            
-              
-
+            <!-- Change Password Button -->
+            <form action="/change_password_page" method="get">
+              <button type="submit" class="btn btn-secondary btn-block mb-4">Change Password</button>
+            </form>
+          
+            <!-- Delete Account Form -->
+            <form method="POST" action="/user_delete" >
+              <button type="submit" class="btn btn-danger btn-block mb-4">
+                  Delete Account
+              </button>
             </form>
             {% endfor %}
           </div>
