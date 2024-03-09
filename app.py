@@ -126,6 +126,7 @@ def user_logout():
     if('user_name' in session):
         if(request.method=='GET'):
             session.clear()  # destroy all users session
+            flash("Logged out successfully")
             return redirect(url_for("user_login"))
     else:
         flash("You cannot access this page..please login")
@@ -168,9 +169,13 @@ def change_password_page():
 
 
 
-@app.route('/change_password', methods=['POST'])
+@app.route('/change_password', methods=['GET', 'POST'])
 def change_password():
-    if 'user_name' in session:
+    if 'user_name' not in session:
+        flash('You must be logged in to change your password')
+        return redirect(url_for('user_login'))
+
+    if request.method == 'POST':
         user_name = session['user_name']
         old_password = request.form['old_password']
         new_password = request.form['new_password']
@@ -184,7 +189,6 @@ def change_password():
             flash('Old password is incorrect')
             return redirect(url_for('user_dashboard'))
 
-        # Validate the new password here as per your password policy
 
         # Encrypt the new password
         new_password = e.convert(new_password)
@@ -194,10 +198,7 @@ def change_password():
         flash('Password changed successfully')
         return redirect(url_for('user_dashboard'))
     else:
-        flash('You must be logged in to change your password')
-        return redirect(url_for('user_login'))
-
-
+        return render_template('change_password_page.html')
 
 
 

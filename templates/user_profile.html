@@ -1,15 +1,19 @@
-{%extends "user_layout.html" %}
-{% block content %} 
+{%extends "user_layout.html" %} {% block content %}
 <head>
   <link rel="stylesheet" href="../static/signup-login-page.css" />
 </head>
 <section class="background-radial-gradient overflow-hidden">
-  <div class="container px-4  px-md-5 text-center text-lg-start my-1 ">
+  <div class="container px-4 px-md-5 text-center text-lg-start my-1">
     <div class="row gx-lg-5 align-items-center mb-5">
       <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-        <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+        <h1
+          class="my-5 display-5 fw-bold ls-tight"
+          style="color: hsl(218, 81%, 95%)"
+        >
           Cloud Beats<br />
-          <span style="color: hsl(218, 81%, 75%)">Tailored music on the go.</span>
+          <span style="color: hsl(218, 81%, 75%)"
+            >Tailored music on the go.</span
+          >
         </h1>
         <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
           Experience Your Soundtrack: Where Music Meets Magic
@@ -17,55 +21,71 @@
       </div>
 
       <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
-        <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-        <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+        <div
+          id="radius-shape-1"
+          class="position-absolute rounded-circle shadow-5-strong"
+        ></div>
+        <div
+          id="radius-shape-2"
+          class="position-absolute shadow-5-strong"
+        ></div>
 
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-danger" role="alert">
-          {{ message }}
-        </div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for
+        message in messages %}
+        <div class="alert alert-danger" role="alert">{{ message }}</div>
+        {% endfor %} {% endif %} {% endwith %} {% for r in record %}
 
-        {% for r in record %}
-
-        <div class="card bg-glass ">
-          <div class="card-body px-4 py-5 px-md-5 ">
-
+        <div class="card bg-glass">
+          <div class="card-body px-4 py-5 px-md-5">
             <form action="/user_profile" method="post">
               <!-- 2 column grid layout with text inputs for the first and last names -->
               <div class="text-center h4 py-3">Your Profile</div>
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
-                    <input name="fname" value="{{r[0]}}" type="text" id="form3Example1" class="form-control" />
-                    <label class="form-label" for="form3Example1">First name</label>
+                    <input
+                      name="fname"
+                      value="{{r[0]}}"
+                      type="text"
+                      id="form3Example1"
+                      class="form-control"
+                    />
+                    <label class="form-label" for="form3Example1"
+                      >First name</label
+                    >
                   </div>
                 </div>
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
-                    <input name="lname" value="{{r[1]}}" type="text" id="form3Example2" class="form-control" />
-                    <label class="form-label" for="form3Example2">Last name</label>
+                    <input
+                      name="lname"
+                      value="{{r[1]}}"
+                      type="text"
+                      id="form3Example2"
+                      class="form-control"
+                    />
+                    <label class="form-label" for="form3Example2"
+                      >Last name</label
+                    >
                   </div>
                 </div>
               </div>
               <!-- Username input -->
               <div class="form-outline mb-4">
-                <input name="user_name" value="{{r[2]}}" type="text" id="form3Example3" class="form-control" />
-                <label class="form-label" for="form3Example3">Username
+                <!-- <input name="user_name" value="{{r[2]}}" type="text" id="form3Example3" class="form-control" /> -->
+                <div class="form-control text-muted">{{r[2]}}</div>
+                <label class="form-label" for="form3Example3">Username</label>
               </div>
 
               <!-- Email input -->
               <div class="form-outline mb-4">
-                <div class="form-control">{{r[3]}}</div>
+                <div class="form-control text-muted">{{r[3]}}</div>
                 <!-- <input name="email" value="" type="email" id="form3Example3"  /> -->
-                <label class="form-label" for="form3Example3">Email address</label>
+                <label class="form-label" for="form3Example3"
+                  >Email address</label
+                >
               </div>
 
-              
               <!-- Submit button -->
               <button type="submit" class="btn btn-primary btn-block mb-4">
                 Update
@@ -74,13 +94,15 @@
 
             <!-- Change Password Button -->
             <form action="/change_password_page" method="get">
-              <button type="submit" class="btn btn-secondary btn-block mb-4">Change Password</button>
+              <button type="submit" class="btn btn-secondary btn-block mb-4">
+                Change Password
+              </button>
             </form>
-          
+
             <!-- Delete Account Form -->
-            <form method="POST" action="/user_delete" >
+            <form method="POST" action="/user_delete">
               <button type="submit" class="btn btn-danger btn-block mb-4">
-                  Delete Account
+                Delete Account
               </button>
             </form>
             {% endfor %}

@@ -95,7 +95,7 @@ class UserOperation:
         db=self.connection()
         mycursor=db.cursor()
         sq="update user set fname=%s, lname=%s where user_name=%s"
-        record=[fname,lname,session['user_name']]
+        record=[fname,lname,session['user_name']]    #username change hone pe session destroy ho jana chahiye
         mycursor.execute(sq,record)
         db.commit()
         session['user_fname']=fname
