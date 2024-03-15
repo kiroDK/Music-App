@@ -1,4 +1,4 @@
-{%extends "user_layout.html" %} {% block content %}
+{%extends "creator_layout.html" %} {% block content %}
 <head>
   <link rel="stylesheet" href="../static/signup-login-page.css" />
 </head>
@@ -37,9 +37,9 @@
 
         <div class="card bg-glass">
           <div class="card-body px-4 py-5 px-md-5">
-            <form action="/user_profile" method="post">
+            <form action="/creator_profile" method="post">
               <!-- 2 column grid layout with text inputs for the first and last names -->
-              <div class="text-center h4 py-3">Your Profile</div>
+              <div class="text-center h4 py-3">Creator Profile</div>
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
@@ -74,7 +74,9 @@
               <div class="form-outline mb-4">
                 <!-- <input name="user_name" value="{{r[2]}}" type="text" id="form3Example3" class="form-control" /> -->
                 <div class="form-control text-muted">{{r[2]}}</div>
-                <label class="form-label" for="form3Example3">Username</label>
+                <label class="form-label" for="form3Example3"
+                  >Creator Name</label
+                >
               </div>
 
               <!-- Email input -->
@@ -93,14 +95,14 @@
             </form>
 
             <!-- Change Password Button -->
-            <form action="/user_change_password" method="get">
+            <form action="/creator_change_password" method="get">
               <button type="submit" class="btn btn-secondary btn-block mb-4">
                 Change Password
               </button>
             </form>
 
             <!-- Delete Account Form -->
-            <form method="POST" action="/user_delete">
+            <form method="POST" action="/creator_delete">
               <button type="submit" class="btn btn-danger btn-block mb-4">
                 Delete Account
               </button>

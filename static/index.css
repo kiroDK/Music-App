@@ -1,32 +1,34 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
+
 .text-center {
     text-align: center;
-  }
-  
-body{
+}
+
+body {
     width: 100%;
     min-height: 100vh;
     color: white;
     background: hsl(218, 41%, 15%);
     background-image: radial-gradient(650px circle at 0% 0%,
-        hsl(218, 41%, 35%) 15%,
-        hsl(218, 41%, 30%) 35%,
-        hsl(218, 41%, 20%) 75%,
-        hsl(218, 41%, 19%) 80%,
-        transparent 100%),
-      radial-gradient(1250px circle at 100% 100%,
-        hsl(218, 41%, 45%) 15%,
-        hsl(218, 41%, 30%) 35%,
-        hsl(218, 41%, 20%) 75%,
-        hsl(218, 41%, 19%) 80%,
-        transparent 100%);
-    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+            hsl(218, 41%, 35%) 15%,
+            hsl(218, 41%, 30%) 35%,
+            hsl(218, 41%, 20%) 75%,
+            hsl(218, 41%, 19%) 80%,
+            transparent 100%),
+        radial-gradient(1250px circle at 100% 100%,
+            hsl(218, 41%, 45%) 15%,
+            hsl(218, 41%, 30%) 35%,
+            hsl(218, 41%, 20%) 75%,
+            hsl(218, 41%, 19%) 80%,
+            transparent 100%);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-.container::before{
+
+.container::before {
     content: "";
     background: url(images/netflix-bg.jpg) no-repeat center center/cover;
     position: absolute;
@@ -35,28 +37,33 @@ body{
     opacity: 0.3;
     z-index: -1;
 }
-.container .navbar{
+
+.container .navbar {
     height: 100px;
     display: flex;
 }
-.container .navbar .left{
+
+.container .navbar .left {
     height: 100%;
     display: flex;
     float: left;
 }
-.container .navbar .left img{
+
+.container .navbar .left img {
     height: 100px;
     position: absolute;
     left: 35px;
 }
-.container .navbar .right{
+
+.container .navbar .right {
     display: flex;
     height: 100px;
     float: right;
     position: absolute;
     right: 50px;
 }
-.container .navbar .right .language{
+
+/* .container .navbar .right .language {
     margin: auto;
     align-items: center;
     justify-content: center;
@@ -66,11 +73,13 @@ body{
     background: none;
     cursor: pointer;
     margin-right: 15px;
-}
-.container .navbar .right .language option{
+} */
+
+/* .container .navbar .right .language option {
     background-color: grey;
-}
-.container .navbar .right button{
+} */
+
+/* .container .navbar .right button {
     margin: auto;
     align-items: center;
     justify-content: center;
@@ -82,73 +91,78 @@ body{
     outline: none;
     border-radius: 4px;
     border: none;
-}
-.container .navbar .right button a{
+} */
+
+.container .navbar .right button a {
     text-decoration: none;
     color: white;
 }
-.container .title{
+
+.container .title {
     padding: 70px 45px;
 }
-.container .title .content{
+
+.container .title .content {
     width: 950px;
     margin: auto;
     padding: 75px 0;
     text-align: center;
 }
-.container .title .content h1{
+
+.container .title .content h1 {
     width: 650px;
     margin: auto;
     font-size: 3.1rem;
     text-align: center;
 }
-.container .title .content h2{
+
+.container .title .content h2 {
     width: 650px;
     margin: auto;
     font-size: 1.6rem;
     text-align: center;
 }
-.container .title .content form h3{
+
+.container .title .content form h3 {
     font-size: 1rem;
     margin: 18px 0;
     text-align: center;
 }
-.container .title .content form .email{
-    width: 1000px;
+
+.container .title .button {
+    width: 550px;
     margin: auto;
+    padding: 15px 0;
+    text-align: center;
 }
-.container .title .content form .email input{
-    height: 60px;
-    width: 450px;
+
+.container .title .button .btn .user {
     margin: auto;
-    padding: 20px;
-    font-size: 20px;
-    outline: none;
-}
-.container .title .content form .email button{
-    margin: auto;
-    height: 60px;
-    width: 180px;
+    color: white;
+    margin-right: 15px;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 400;
     padding: 7px 17px;
     background: hsl(218, 53%, 59%);
     cursor: pointer;
     outline: none;
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
+    border-radius: 4px;
     border: none;
-    margin-left: -5px;
-}
-.container .title .content form .email button:hover{
-    background-color: hsl(218, 56%, 47%);
-}
-.container .navbar .right button:hover{
-    background-color: hsl(218, 56%, 47%);
 }
 
-.container .title .content form .email button a{
-    text-decoration: none;
+.container .title .button .btn .creator {
+    margin: auto;
     color: white;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 7px 17px;
+    background: hsl(218, 53%, 59%);
+    cursor: pointer;
+    outline: none;
+    border-radius: 4px;
+    border: none;
 }

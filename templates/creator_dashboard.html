@@ -1,0 +1,16 @@
+{% extends "main_layout.html" %} {% block content %}
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: whitesmoke;
+  "
+>
+  <h1>Creator Dashboard</h1>
+</div>
+{% endblock %} {% block user_buttons %}
+<a class="nav-link" href="/creator_profile"> Profile</a>
+<a class="nav-link" href="/creator_logout">Logout</a>
+{% endblock %}
