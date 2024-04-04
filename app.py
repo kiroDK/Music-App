@@ -6,6 +6,7 @@ from validate import myvalidate
 from myemail import Email
 from myrandom import randomnumber
 from datetime import datetime
+from audio import voice
 
 app=Flask(__name__)  
 app.secret_key= "df5ge4twfwef32f2"  #attribute
@@ -363,6 +364,28 @@ def creator_delete():
         return redirect(url_for('creator_login'))
     else:
         return "You must be logged in to delete your account"
+
+
+@app.route("/creator_audioblog",methods=['GET','POST'])
+def creator_audioblog():
+    if('creator_id' in session):
+        if(request.method=='GET'):
+            try:
+                audiolist = voice()
+                d = datetime.now()
+                t = int(round(d.timestamp()))
+                audio = str(t)+'.wav'
+                with open('static/audioblog/'+audio,'wb') as f:
+                    f.write(audiolist[1].get_wav_data())
+
+                creatorobj.creator_audioblog(audio,audiolist[0])
+                return redirect(url_for(creator_dashboard))
+            except:
+                flash("Voice is not recognized")
+                return redirect(url_for("creator_dashboard"))
+    else:
+        flash("You cannot access this page..please login")
+        return redirect(url_for("creator_login"))
 
 
 
