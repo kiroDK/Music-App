@@ -1,23 +1,20 @@
-{% extends "main_layout.html" %} {% block content %}
-<div
-  style="
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: whitesmoke;
-  "
->
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-{% for message in messages %}
-<div class="alert alert-danger" role="alert">
-  {{ message }}
-</div>
-{% endfor %}
-{% endif %}
-{% endwith %}
-  <h1>Creator Dashboard</h1>
+{% extends "creator_layout.html" %} {% block content %} {% with messages =
+get_flashed_messages() %} {% if messages %} {% for message in messages %}
+<div class="alert alert-danger" role="alert">{{ message }}</div>
+{% endfor %} {% endif %} {% endwith %}
+<br />
+<div class="row position-absolute top-50 start-50 translate-middle text-white">
+  <div class="col-12 text-center">
+    <h1>Creator Dashboard</h1>
+  </div>
+  <div class="col-12 text-center">
+    <img
+      src="/static/icons/Animation - 1712392163904.gif"
+      width="100"
+      height="50"
+      alt="music_animation"
+    />
+  </div>
 </div>
 {% endblock %} {% block user_buttons %}
 <a class="nav-link" href="/creator_profile"> Profile</a>

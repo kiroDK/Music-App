@@ -99,33 +99,40 @@ class CreatorOperation:
         return
 
 
-    def creator_audioblog(self,fname,lname,email,creator_name,password,photo):   #for inserting data into table
+    def creator_audioblog(self,audio,audiotext,category):   #for inserting data into table
             db=self.connection()
             mycursor = db.cursor()
-            sq = "insert into audioblog (creator_id,audio,audiotext,created_at) values (%s,%s,%s,%s)"
+            sq = "insert into audioblog (creator_id,audio,audiotext,category,created_at) values (%s,%s,%s,%s,%s)"
             created_at = datetime.now()
-            record=[session['creator_id'],audio,audiotext,created_at]
+            record=[session['creator_id'],audio,audiotext,category,created_at]
             mycursor.execute(sq,record)
             db.commit()    # insert, delete, display
             mycursor.close() # close
             db.close() # close
             return
 
+    def creator_audio_upload(self,path,category):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "insert into audio_upload (creator_id,audio,category,created_at) values (%s,%s,%s,%s)"
+        created_at = datetime.now()
+        record=[session['creator_id'],path,category,created_at]
+        mycursor.execute(sq,record)
+        db.commit()
+        mycursor.close()
+        db.close()
+        return
 
-    # #Email Wala khud se kro
-    # def email_check(self,email):
-    #     db = self.connection()
-    #     mycursor = db.cursor()
-    #     sq = "select email from user where email = %s"
 
-    #     record =[email]
-    #     mycursor.execute(sq,record)
-    #     mycursor.fetchall()
-    #     rc = mycursor.rowcount
-    #     if(rc==0):
-    #         return 0
-    #     else:
-    #         return 1
-
+    def get_creator_music(self,creator_id):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "select creator_id, audioblog_id, audio, audiotext, created_at from audioblog where creator_id = %s"
+        record = [session['creator_id']]
+        mycursor.execute(sq,record)
+        rows = mycursor.fetchall()
+        mycursor.close()
+        db.close()
+        return rows
 
 

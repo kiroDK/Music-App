@@ -1,0 +1,48 @@
+{% extends "creator_layout.html" %} {% block content %}
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: whitesmoke;
+  "
+>
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for message
+  in messages %}
+  <div class="alert alert-danger" role="alert">{{ message }}</div>
+  {% endfor %} {% endif %} {% endwith %}
+  <br />
+  <div class="text-center">
+    <div class="col 12 text-center">
+      <h1>Creator Music Library</h1>
+    </div>
+    <br />
+    <div class="col 12 text-center">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Audio Blog ID</th>
+            <th>Audio</th>
+            <th>Audio Text</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for music_file in music_files %}
+          <tr>
+            <td>{{ music_file[1] }}</td>
+            <td>{{ music_file[2] }}</td>
+            <td>{{ music_file[3] }}</td>
+            <td>{{ music_file[4] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block user_buttons %}
+<a class="nav-link" href="/creator_profile">Profile</a>
+<a class="nav-link" href="/creator_logout">Logout</a>
+{% endblock %}

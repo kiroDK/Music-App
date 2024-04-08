@@ -366,12 +366,14 @@ def creator_delete():
         return "You must be logged in to delete your account"
 
 
+
 @app.route("/creator_audioblog",methods=['GET','POST'])
 def creator_audioblog():
     if('creator_id' in session):
         if(request.method=='GET'):
+            lang=request.args.get('lang')
             try:
-                audiolist = voice()
+                audiolist = voice(lang)
                 d = datetime.now()
                 t = int(round(d.timestamp()))
                 audio = str(t)+'.wav'
@@ -379,13 +381,57 @@ def creator_audioblog():
                     f.write(audiolist[1].get_wav_data())
 
                 creatorobj.creator_audioblog(audio,audiolist[0])
-                return redirect(url_for(creator_dashboard))
+                flash("Your audio blog recorded successfully!!")
+                return redirect(url_for("creator_audio"))
             except:
                 flash("Voice is not recognized")
-                return redirect(url_for("creator_dashboard"))
+                return redirect(url_for("creator_audio"))
+
+        else:
+            category = request.form['category']
+            audio = request.files['audio']
+            p = audio.filename
+            if(p==''):
+                flash("audio must be uploaded!!")
+                return redirect(url_for('creator_audio'))
+            
+            d = datetime.now()
+            t = int(round(d.timestamp()))
+            path = str(t)+'.'+p.split('.')[-1]
+            audio.save("static/audioblog/"+path)
+            creatorobj.creator_audio_upload(path,category)
+
+            flash("Your audioblog is uploaded successfully!!")
+            return redirect(url_for("creator_audio"))
+
     else:
         flash("You cannot access this page..please login")
         return redirect(url_for("creator_login"))
+
+
+@app.route("/creator_audio",methods=['GET','POST'])
+def creator_audio():
+    if('creator_name' in session):
+        if(request.method=='GET'):
+            return render_template("creator_audio.html")
+    else:
+        flash("You cannot access this page..please login")
+        return redirect(url_for("creator_login"))
+
+
+
+@app.route("/creator_music_files")
+def creator_music_files():
+    if('creator_id' in session):
+        music_files = creatorobj.get_creator_music(session['creator_id'])
+        return render_template("creator_music_files.html",music_files=music_files)
+    else:
+        flash("Please Login to Access the Page...Please login")
+        return redirect(url_for("creator_login"))
+
+
+
+
 
 
 

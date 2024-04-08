@@ -1,5 +1,5 @@
-{% extends "main_layout.html" %} {% block content %}
-<div
+{% extends "user_layout.html" %} {% block content %}
+<!-- <div
   style="
     display: flex;
     justify-content: center;
@@ -7,10 +7,22 @@
     height: 100vh;
     color: whitesmoke;
   "
->
-  <h1>User Dashboard</h1>
+> -->
+<div class="row position-absolute top-50 start-50 translate-middle text-white">
+  <div class="col-12 text-center">
+    <h1>User Dashboard</h1>
+  </div>
+  <div class="col-12 text-center">
+    <img
+      src="/static/icons/Animation - 1712392163904.gif"
+      width="100"
+      height="50"
+      alt="music_animation"
+    />
+  </div>
 </div>
+<!-- </div> -->
 {% endblock %} {% block user_buttons %}
-<a class="nav-link" href="/user_profile"> Profile</a>
+<a class="nav-link" href="/user_profile"> {{session["user_fname"]}}</a>
 <a class="nav-link" href="/user_logout">Logout</a>
 {% endblock %}

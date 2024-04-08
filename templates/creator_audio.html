@@ -1,0 +1,63 @@
+{% extends "creator_layout.html" %} {% block content %}
+<div
+  style="
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: whitesmoke;
+  "
+>
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for message
+  in messages %}
+  <div class="alert alert-danger" role="alert">{{ message }}</div>
+  {% endfor %} {% endif %} {% endwith %}
+
+  <span class="text-warning">Record your audio in English</span>
+  <a href="/creator_audioblog?lang=1">
+    <img src="/static/icons/rec.gif" width="50" height="50" alt="recording" />
+  </a>
+  <br />
+  <span class="text-warning">Record your audio in Hindi</span
+  ><a href="/creator_audioblog?lang=2 ">
+    <img src="/static/icons/rec.gif" width="50" height="50" alt="recording" />
+    <script>
+      function useCategory() {
+        let cat = document.getElementById("category").innerText;
+        windows.location.href = "/caretor_audioblog?lang=2&category=" + cat;
+      }
+    </script>
+  </a>
+  <br />
+  <div class="text-center">
+    <form
+      action="/creator_audioblog"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <div class="row text-center">
+        <div class="col text-center">
+          <select name="category" class="form-select w-100">
+            <option>Spiritual</option>
+            <option>Rock</option>
+            <option>Metal</option>
+            <option>Raw</option>
+            <option>Classic</option>
+          </select>
+        </div>
+      </div>
+      <br />
+      <input class="form-control" type="file" name="audio" />
+      <br />
+      <button class="btn btn-primary btn-block mb-4" type="submit">
+        Upload
+      </button>
+    </form>
+  </div>
+</div>
+
+{% endblock %} {% block user_buttons %}
+<a class="nav-link" href="/creator_profile"> Profile</a>
+<a class="nav-link" href="/creator_logout">Logout</a>
+{% endblock %}
