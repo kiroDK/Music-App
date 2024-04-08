@@ -46,3 +46,27 @@
 <a class="nav-link" href="/creator_profile">Profile</a>
 <a class="nav-link" href="/creator_logout">Logout</a>
 {% endblock %}
+
+<!-- Include the JavaScript code directly in the HTML file -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var navLinks = document.querySelectorAll(".nav-link");
+
+    for (var i = 0; i < navLinks.length; i++) {
+      navLinks[i].addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Remove the "active" class from all links
+        for (var j = 0; j < navLinks.length; j++) {
+          navLinks[j].classList.remove("active");
+        }
+
+        // Add the "active" class to the clicked link
+        this.classList.add("active");
+
+        // Manually navigate to the link's href
+        window.location.href = this.href;
+      });
+    }
+  });
+</script>

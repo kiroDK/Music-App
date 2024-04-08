@@ -82,7 +82,7 @@
                 >
                   <li class="nav-item mx-2">
                     <a
-                      class="nav-link active"
+                      class="nav-link"
                       aria-current="page"
                       href="/creator_dashboard"
                       >Home</a
@@ -127,5 +127,37 @@
     <footer style="margin-top: auto; text-align: center; color: white">
       &copy; Dibyanshu
     </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var currentPage = window.location.pathname;
+
+        var navLinks = document.querySelectorAll(".nav-link");
+        var noActiveLink = true;
+
+        for (var i = 0; i < navLinks.length; i++) {
+          var href = navLinks[i].getAttribute("href");
+
+          if (currentPage === href) {
+            navLinks[i].classList.add("active");
+            noActiveLink = false;
+          }
+
+          navLinks[i].addEventListener("click", function (event) {
+            event.preventDefault();
+
+            for (var j = 0; j < navLinks.length; j++) {
+              navLinks[j].classList.remove("active");
+            }
+
+            this.classList.add("active");
+            window.location.href = this.href;
+          });
+        }
+
+        if (noActiveLink) {
+          navLinks[0].classList.add("active");
+        }
+      });
+    </script>
   </body>
 </html>
