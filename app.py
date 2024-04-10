@@ -202,6 +202,19 @@ def user_change_password():
 
 
 
+
+@app.route('/user_blog_listen', methods=['GET','POST'])
+def user_blog_listen():
+    if 'user_name' in session:
+        if(request.method == 'GET'):
+            userobj.user_blog_listen()
+            record = userobj.user_blog_listen()
+            return render_template('user_blog_listen.html',record=record)
+    else:
+        return "You must be logged in to delete your account"
+
+
+
 #------------------For Testing---------------------------#
 @app.route("/test")
 def testing():
@@ -214,6 +227,8 @@ def testing1():
 @app.route("/test2")
 def testing2():
     return render_template("change_password_page.html")
+
+
 
 
 #----------------------------------------------------------------
@@ -379,12 +394,13 @@ def creator_audioblog():
                 audio = str(t)+'.wav'
                 with open('static/audioblog/'+audio,'wb') as f:
                     f.write(audiolist[1].get_wav_data())
-
+            
                 creatorobj.creator_audioblog(audio,audiolist[0])
                 flash("Your audio blog recorded successfully!!")
                 return redirect(url_for("creator_audio"))
-            except:
-                flash("Voice is not recognized")
+            except  Exception as e :
+                flash (str(e))
+                # flash("Voice is not recognized")
                 return redirect(url_for("creator_audio"))
 
         else:
@@ -420,14 +436,41 @@ def creator_audio():
 
 
 
-@app.route("/creator_music_files")
-def creator_music_files():
+@app.route("/creator_recorded",methods=['GET','POST'])
+def creator_recorded():
     if('creator_id' in session):
-        music_files = creatorobj.get_creator_music(session['creator_id'])
-        return render_template("creator_music_files.html",music_files=music_files)
+        if(request.method=='GET'):
+            record = creatorobj.get_creator_recorded(session['creator_id'])
+        return render_template("creator_recorded.html",record=record)
     else:
         flash("Please Login to Access the Page...Please login")
         return redirect(url_for("creator_login"))
+
+
+@app.route("/creator_uploaded")
+def creator_uploaded():
+    if('creator_id' in session):
+        record = creatorobj.get_creator_uploaded()
+        return render_template("creator_recorded.html",record=record)
+    else:
+        flash("Please Login to Access the Page...Please login")
+        return redirect(url_for("creator_login"))
+
+
+
+
+@app.route("/creator_delete_audioblog",methods=['GET','POST'])
+def creator_delete_audioblog():
+    if('creator_id' in session):
+        if(request.method=='GET'):
+            audioblog_id=int(request.args.get('audioblog_id'))
+            creatorobj.creator_delete_audioblog(audioblog_id)
+            flash("Audio blog deleted Successfully")
+            return redirect(url_for("creator_recorded"))
+    else:
+        flash("Please Login to Access the Page...Please login")
+        return redirect(url_for("creator_login"))
+
 
 
 

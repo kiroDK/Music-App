@@ -1,0 +1,86 @@
+{% extends "creator_layout.html" %} {% block content %}
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    height: 100vh;
+    overflow: auto;
+  "
+>
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for message
+  in messages %}
+  <div class="alert alert-danger" role="alert">{{ message }}</div>
+  {% endfor %} {% endif %} {% endwith %}
+  <br />
+  <div class="">
+    <div class="col 12 text-center">
+      <h1>Creator Music Library</h1>
+    </div>
+    <br />
+    <div class="col 12 text-center">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Audio Blog ID</th>
+            <th>Audio</th>
+            <th>Audio Text</th>
+            <th>Created At</th>
+            <th>Play</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in record %}
+          <tr>
+            <td>{{ r[1] }}</td>
+            <td>{{ r[2] }}</td>
+            <td>{{ r[3] }}</td>
+            <td>{{ r[4] }}</td>
+            <td>
+              <audio controls>
+                <source src="../static/audioblog/{{r[2]}}" type="audio/wav" />
+                Your browser does not support the audio element.
+              </audio>
+            </td>
+            <td>
+              <a href="/creator_delete_audioblog?audioblog_id={{ r[1] }}"
+                ><img src="../static/icons/delete-16.ico" alt="delete icon"
+              /></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block user_buttons %}
+<a class="nav-link" href="/creator_profile">Profile</a>
+<a class="nav-link" href="/creator_logout">Logout</a>
+{% endblock %}
+
+<!-- Include the JavaScript code directly in the HTML file -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var navLinks = document.querySelectorAll(".nav-link");
+
+    for (var i = 0; i < navLinks.length; i++) {
+      navLinks[i].addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Remove the "active" class from all links
+        for (var j = 0; j < navLinks.length; j++) {
+          navLinks[j].classList.remove("active");
+        }
+
+        // Add the "active" class to the clicked link
+        this.classList.add("active");
+
+        // Manually navigate to the link's href
+        window.location.href = this.href;
+      });
+    }
+  });
+</script>

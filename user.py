@@ -126,3 +126,14 @@ class UserOperation:
         mycursor.close()
         db.close()
 
+
+    def user_blog_listen(self):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "select creator_id, audioblog_id, audio, audiotext, created_at from audioblog"
+        mycursor.execute(sq)
+        row = mycursor.fetchall()
+        mycursor.close()
+        db.close()
+        return row
+

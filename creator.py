@@ -99,12 +99,12 @@ class CreatorOperation:
         return
 
 
-    def creator_audioblog(self,audio,audiotext,category):   #for inserting data into table
+    def creator_audioblog(self,audio,audiotext):   #for inserting data into table
             db=self.connection()
             mycursor = db.cursor()
-            sq = "insert into audioblog (creator_id,audio,audiotext,category,created_at) values (%s,%s,%s,%s,%s)"
+            sq = "insert into audioblog (creator_id,audio,audiotext,created_at) values (%s,%s,%s,%s)"
             created_at = datetime.now()
-            record=[session['creator_id'],audio,audiotext,category,created_at]
+            record=[session['creator_id'],audio,audiotext,created_at]
             mycursor.execute(sq,record)
             db.commit()    # insert, delete, display
             mycursor.close() # close
@@ -124,15 +124,28 @@ class CreatorOperation:
         return
 
 
-    def get_creator_music(self,creator_id):
+    def get_creator_recorded(self,creator_id):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "select creator_id, audioblog_id, audio, audiotext, created_at from audioblog where creator_id = %s"
+        sq = "select creator_id, audioblog_id, audio, audiotext, created_at from audioblog where creator_id = (%s)"
         record = [session['creator_id']]
         mycursor.execute(sq,record)
         rows = mycursor.fetchall()
         mycursor.close()
         db.close()
         return rows
+
+
+    def creator_delete_audioblog(self, audioblog_id):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "DELETE FROM audioblog WHERE audioblog_id = (%s)"
+        record = [audioblog_id]
+        mycursor.execute(sq, record)
+        db.commit()
+        mycursor.close()
+        db.close()
+        return
+
 
 
