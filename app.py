@@ -387,6 +387,7 @@ def creator_audioblog():
     if('creator_id' in session):
         if(request.method=='GET'):
             lang=request.args.get('lang')
+            category=request.args.get('category')
             try:
                 audiolist = voice(lang)
                 d = datetime.now()
@@ -395,16 +396,17 @@ def creator_audioblog():
                 with open('static/audioblog/'+audio,'wb') as f:
                     f.write(audiolist[1].get_wav_data())
             
-                creatorobj.creator_audioblog(audio,audiolist[0])
+                creatorobj.creator_audioblog(audio,audiolist[0],category)
                 flash("Your audio blog recorded successfully!!")
                 return redirect(url_for("creator_audio"))
             except  Exception as e :
                 flash (str(e))
-                # flash("Voice is not recognized")
+                flash("Voice is not recognized")
                 return redirect(url_for("creator_audio"))
 
         else:
             category = request.form['category']
+            title= request.form['title']
             audio = request.files['audio']
             p = audio.filename
             if(p==''):
@@ -447,11 +449,11 @@ def creator_recorded():
         return redirect(url_for("creator_login"))
 
 
-@app.route("/creator_uploaded")
+@app.route("/creator_uploaded",methods=['GET','POST'])
 def creator_uploaded():
     if('creator_id' in session):
-        record = creatorobj.get_creator_uploaded()
-        return render_template("creator_recorded.html",record=record)
+        record = creatorobj.get_creator_uploaded(session['creator_id'])
+        return render_template("creator_uploaded.html",record=record)
     else:
         flash("Please Login to Access the Page...Please login")
         return redirect(url_for("creator_login"))
@@ -472,6 +474,22 @@ def creator_delete_audioblog():
         return redirect(url_for("creator_login"))
 
 
+@app.route("/creator_edit_audio",methods=['GET','POST'])
+def creator_edit_audio():
+    if('creator_id' in session):
+        if(request.method=='GET'):
+            audioblog_id=int(request.args.get('audioblog_id'))
+            record=creatorobj.creator_edit_audio(audio_id)
+            return render_template("creator_edit_audio.html",record=record)
+        else:
+            audio_id=request.args.get('audio_id')
+            # category =  request.from
+            creatorobj.creator_edit_audio(audio_id)
+            flash("Category changed successfully")
+            return redirect(url_for("creator_uploaded"))
+    else:
+        flash("Please Login to Access the Page...Please login")
+        return redirect(url_for("creator_login"))
 
 
 

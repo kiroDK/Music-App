@@ -15,19 +15,20 @@
   {% endfor %} {% endif %} {% endwith %}
 
   <span class="text-warning">Record your audio in English</span>
-  <a href="/creator_audioblog?lang=1">
+  <a href="/creator_audioblog?lang=1" onClick="useCategory(this)">
     <img src="/static/icons/rec.gif" width="50" height="50" alt="recording" />
   </a>
   <br />
   <span class="text-warning">Record your audio in Hindi</span
-  ><a href="/creator_audioblog?lang=2 ">
+  ><a href="/creator_audioblog?lang=2 " onClick="useCategory(this)">
     <img src="/static/icons/rec.gif" width="50" height="50" alt="recording" />
-    <!-- <script>
-      function useCategory() {
-        let cat = document.getElementById("category").innerText;
-        windows.location.href = "/caretor_audioblog?lang=2&category=" + cat;
+    <script>
+      function useCategory(link) {
+        let cat = document.getElementById("category").value;
+        let title = document.getElementById("title").value;
+        link.href = link.href + "&category=" + cat;
       }
-    </script> -->
+    </script>
   </a>
   <br />
   <div class="text-center">
@@ -38,7 +39,7 @@
     >
       <div class="row text-center">
         <div class="col text-center">
-          <select name="category" class="form-select w-100">
+          <select id="category" name="category" class="form-select w-100">
             <option>Spiritual</option>
             <option>Rock</option>
             <option>Metal</option>

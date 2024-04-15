@@ -1,0 +1,47 @@
+{% extends "creator_layout.html" %} {% block content %}
+<div
+  style="
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: whitesmoke;
+  "
+>
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for message
+  in messages %}
+  <div class="alert alert-danger" role="alert">{{ message }}</div>
+  {% endfor %} {% endif %} {% endwith %} {%for r in record%}
+  <div class="text-center">
+    <form
+      action="/creator_edit_audio?audio_id={{request.args.get}}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <div class="row text-center">
+        <div class="col text-center">
+          <select id="category" name="category" class="form-select w-100">
+            <option {% if(r[0]=='Spiritual') %} selected{% endif %}>Spiritual</option>
+            <option {% if(r[0]=='Rock') %} selected{% endif %}>Rock</option>
+            <option {% if(r[0]=='Metal') %} selected{% endif %}>Metal</option>
+            <option {% if(r[0]=='Raw') %} selected{% endif %}>Raw</option>
+            <option {% if(r[0]=='Classic') %} selected{% endif %}>Classic</option>
+          </select>
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-warning">Update</button>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block mb-4" type="submit">
+        Upload
+      </button>
+    </form>
+    {%endfor%}
+  </div>
+</div>
+
+{% endblock %} {% block user_buttons %}
+<a class="nav-link" href="/creator_profile"> Profile</a>
+<a class="nav-link" href="/creator_logout">Logout</a>
+{% endblock %}

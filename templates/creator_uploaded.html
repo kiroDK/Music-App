@@ -23,9 +23,8 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Audio Blog ID</th>
+            <th>Audio Upload ID</th>
             <th>Audio</th>
-            <th>Audio Text</th>
             <th>Category</th>
             <th>Created At</th>
             <th>Play</th>
@@ -35,14 +34,13 @@
         <tbody>
           {% for r in record %}
           <tr>
-            <td>{{ r[1] }}</td>
-            <td>{{ r[2] }}</td>
-            <td>{{ r[3] }}</td>
-            <td>{{ r[4] }}</td>
-            <td>{{r[5]}}</td>
+            <td>{{r[0]}}</td>
+            <td>{{r[1]}}</td>
+            <td>{{r[2]}}</td>
+            <td>{{r[3]}}</td>
             <td>
               <audio controls>
-                <source src="../static/audioblog/{{r[2]}}" type="audio/wav" />
+                <source src="../static/audioblog/{{r[1]}}" type="audio/wav" />
                 Your browser does not support the audio element.
               </audio>
             </td>

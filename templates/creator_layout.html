@@ -19,7 +19,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-
     <link rel="stylesheet" href="../static/main_layout.css" />
     <title>Cloud Beats</title>
   </head>
@@ -55,7 +54,6 @@
             </button>
 
             <!-- Sidebar -->
-
             <div
               class="sidebar offcanvas offcanvas-start"
               tabindex="-1"
@@ -63,7 +61,6 @@
               aria-labelledby="offcanvasNavbarLabel"
             >
               <!-- Sidebar Header -->
-
               <div class="offcanvas-header text-white border-bottom">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
                   <a href="/creator_dashboard">Cloud Beats</a>
@@ -75,9 +72,7 @@
                   aria-label="Close"
                 ></button>
               </div>
-
               <!-- Sidebar Body -->
-
               <div
                 class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0"
               >
@@ -86,7 +81,7 @@
                 >
                   <li class="nav-item mx-2">
                     <a
-                      class="nav-link active"
+                      class="nav-link"
                       aria-current="page"
                       href="/creator_dashboard"
                       >Home</a
@@ -95,8 +90,29 @@
                   <li class="nav-item mx-2">
                     <a class="nav-link" href="#">About</a>
                   </li>
-                  <li class="nav-item mx-2">
-                    <a class="nav-link" href="/creator_recorded">Library</a>
+                  <li class="nav-item mx-2 dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Library
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li>
+                        <a class="dropdown-item" href="/creator_recorded"
+                          >Creator Recorded</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="/creator_uploaded"
+                          >Creator Uploaded</a
+                        >
+                      </li>
+                    </ul>
                   </li>
                   <li class="nav-item mx-2">
                     <a class="nav-link" href="/creator_audio">Audio Blog</a>
@@ -110,10 +126,8 @@
                     href="/creator_profile"
                     class="text-white"
                     style="text-decoration: none"
+                    >{{session["creator_name"]}}</a
                   >
-                    {{session["creator_name"]}}
-                  </a>
-
                   <a
                     href="/creator_logout"
                     class="text-white"
@@ -127,39 +141,34 @@
         </nav>
       </body>
     </header>
+
     {% block content %} {% endblock %}
+
     <footer style="margin-top: auto; text-align: center; color: white">
       &copy; Dibyanshu
     </footer>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         var currentPage = window.location.pathname;
 
         var navLinks = document.querySelectorAll(".nav-link");
-        var noActiveLink = true;
+        var libraryLink = document.querySelector('.dropdown-toggle[href="#"]');
 
         for (var i = 0; i < navLinks.length; i++) {
           var href = navLinks[i].getAttribute("href");
 
+          navLinks[i].classList.remove("active");
+
           if (currentPage === href) {
             navLinks[i].classList.add("active");
-            noActiveLink = false;
           }
-
-          navLinks[i].addEventListener("click", function (event) {
-            event.preventDefault();
-
-            for (var j = 0; j < navLinks.length; j++) {
-              navLinks[j].classList.remove("active");
-            }
-
-            this.classList.add("active");
-            window.location.href = this.href;
-          });
         }
-
-        if (noActiveLink) {
-          navLinks[0].classList.add("active");
+        if (
+          currentPage === "/creator_uploaded" ||
+          currentPage === "/creator_recorded"
+        ) {
+          libraryLink.classList.add("active");
         }
       });
     </script>
