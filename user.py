@@ -140,8 +140,8 @@ class UserOperation:
     def user_blog_search(self,title):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "select creator_id,audio, title, audiotext, category from audioblog where title = %s"
-        record = [title]
+        sq = "select creator_id,audio, title, audiotext, category from audioblog where title like %s"
+        record = ["%" + title + "%"]
         mycursor.execute(sq,record)
         row = mycursor.fetchall()
         mycursor.close()
@@ -154,6 +154,29 @@ class UserOperation:
         mycursor = db.cursor()
         sq = "select title, category, audio, audiotext from audioblog"
         mycursor.execute(sq)
+        row = mycursor.fetchall()
+        mycursor.close()
+        db.close()
+        return row
+
+
+    def user_song_listen(self):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "select title, audio,category from audio_upload"
+        mycursor.execute(sq)
+        row = mycursor.fetchall()
+        mycursor.close()
+        db.close()
+        return row
+
+
+    def user_song_search(self,title):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "select title, audio,category from audio_upload where title like %s"
+        record = ["%" + title + "%"]
+        mycursor.execute(sq,record)
         row = mycursor.fetchall()
         mycursor.close()
         db.close()

@@ -7,15 +7,17 @@
   <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
     <div class="row gx-lg-5 align-items-center mb-5">
       <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-        <h1
-          class="my-5 display-5 fw-bold ls-tight"
-          style="color: hsl(218, 81%, 95%)"
-        >
-          Cloud Beats<br />
-          <span style="color: hsl(218, 81%, 75%)"
-            >Tailored music on the go</span
+        <a href="/" style="text-decoration: none"
+          ><h1
+            class="my-5 display-5 fw-bold ls-tight"
+            style="color: hsl(218, 81%, 95%)"
           >
-        </h1>
+            Cloud Beats<br />
+            <span style="color: hsl(218, 81%, 75%)"
+              >Tailored music on the go.</span
+            >
+          </h1></a
+        >
         <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
           Experience Your Soundtrack: Where Music Meets Magic
         </p>
@@ -30,15 +32,10 @@
           id="radius-shape-2"
           class="position-absolute shadow-5-strong"
         ></div>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-danger" role="alert">
-          {{ message }}
-        </div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for
+        message in messages %}
+        <div class="alert alert-danger" role="alert">{{ message }}</div>
+        {% endfor %} {% endif %} {% endwith %}
         <div class="card bg-glass">
           <div class="card-body px-4 py-5 px-md-5">
             <form action="/creator_login" method="post">
@@ -47,20 +44,24 @@
 
               <!-- Username input -->
               <div class="form-outline mb-4">
-                <input type="text" name="creator_name" id="form3Example3" class="form-control" />
-                <label class="form-label" for="form3Example3"
-                  >Username
+                <label class="form-label" for="form3Example3">Username</label>
+                <input
+                  type="text"
+                  name="creator_name"
+                  id="form3Example3"
+                  class="form-control"
+                />
               </div>
 
               <!-- Password input -->
               <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example4">Password</label>
                 <input
                   type="password"
                   name="password"
                   id="form3Example4"
                   class="form-control"
                 />
-                <label class="form-label" for="form3Example4">Password</label>
               </div>
 
               <!-- Submit button -->
@@ -73,8 +74,6 @@
               <a href="creator_signup" class="btn btn-primary btn-block mb-4">
                 Sign Up
               </a>
-
-              
             </form>
           </div>
         </div>

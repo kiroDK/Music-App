@@ -232,11 +232,33 @@ def user_blog_search():
         if(request.method == 'POST'):
             title = request.form['title']
             record = userobj.user_blog_search(title)
-            return render_template('user_blog_listen.html',record=record)
+            return render_template('user_blog_listen.html',record=record,title=title)
     else:
        flash( "You must be logged in to delete your account")
        return redirect(url_for('user_login'))
 
+
+@app.route('/user_song_listen', methods=['GET','POST'])
+def user_song_listen():
+    if 'user_name' in session:
+        if(request.method == 'GET'):
+            userobj.user_song_listen()
+            record = userobj.user_song_listen()
+            return render_template('user_song_listen.html',record=record)
+    else:
+        return "You must be logged in to delete your account"
+        
+
+@app.route('/user_song_search', methods=['GET','POST'])
+def user_song_search():
+    if 'user_name' in session:
+        if(request.method == 'POST'):
+            title = request.form['title']
+            record = userobj.user_song_search(title)
+            return render_template('user_song_listen.html',record=record,title=title)
+    else:
+       flash( "You must be logged in to delete your account")
+       return redirect(url_for('user_login'))
 
 
 #------------------For Testing---------------------------#

@@ -38,11 +38,21 @@
         <div class="card bg-glass">
           <div class="card-body px-4 py-5 px-md-5">
             <form action="/creator_profile" method="post">
-              <!-- 2 column grid layout with text inputs for the first and last names -->
               <div class="text-center h4 py-3">Creator Profile</div>
+              <div class="col-md-6 mb-4">
+                <img
+                  src="{{ url_for('static', filename='creator/' + r[4]) }}"
+                  alt="Creator Photo"
+                  height="150px"
+                  width="150px"
+                />
+              </div>
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
+                    <label class="form-label" for="form3Example1"
+                      >First name</label
+                    >
                     <input
                       name="fname"
                       value="{{r[0]}}"
@@ -50,13 +60,13 @@
                       id="form3Example1"
                       class="form-control"
                     />
-                    <label class="form-label" for="form3Example1"
-                      >First name</label
-                    >
                   </div>
                 </div>
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
+                    <label class="form-label" for="form3Example2"
+                      >Last name</label
+                    >
                     <input
                       name="lname"
                       value="{{r[1]}}"
@@ -64,28 +74,25 @@
                       id="form3Example2"
                       class="form-control"
                     />
-                    <label class="form-label" for="form3Example2"
-                      >Last name</label
-                    >
                   </div>
                 </div>
               </div>
               <!-- Username input -->
               <div class="form-outline mb-4">
                 <!-- <input name="user_name" value="{{r[2]}}" type="text" id="form3Example3" class="form-control" /> -->
-                <div class="form-control text-muted">{{r[2]}}</div>
                 <label class="form-label" for="form3Example3"
                   >Creator Name</label
                 >
+                <div class="form-control text-muted">{{r[2]}}</div>
               </div>
 
               <!-- Email input -->
               <div class="form-outline mb-4">
-                <div class="form-control text-muted">{{r[3]}}</div>
-                <!-- <input name="email" value="" type="email" id="form3Example3"  /> -->
                 <label class="form-label" for="form3Example3"
                   >Email address</label
                 >
+                <div class="form-control text-muted">{{r[3]}}</div>
+                <!-- <input name="email" value="" type="email" id="form3Example3"  /> -->
               </div>
 
               <!-- Submit button -->

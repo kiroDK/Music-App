@@ -89,10 +89,34 @@
                     <a class="nav-link" href="#">About</a>
                   </li>
                   <li class="nav-item mx-2">
-                    <a class="nav-link" href="#subscription">Subscription</a>
+                    <a class="nav-link" href="#">Subscription</a>
                   </li>
-                  <li class="nav-item mx-2">
+                  <!-- <li class="nav-item mx-2">
                     <a class="nav-link" href="/user_blog_listen">Blog</a>
+                  </li> -->
+                  <li class="nav-item mx-2 dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Library
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li>
+                        <a class="dropdown-item" href="/user_blog_listen"
+                          >Blog</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="/user_song_listen"
+                          >Songs</a
+                        >
+                      </li>
+                    </ul>
                   </li>
                 </ul>
                 <!-- Login / Signup -->
@@ -129,30 +153,22 @@
         var currentPage = window.location.pathname;
 
         var navLinks = document.querySelectorAll(".nav-link");
-        var noActiveLink = true;
+        var libraryLink = document.querySelector('.dropdown-toggle[href="#"]');
 
         for (var i = 0; i < navLinks.length; i++) {
           var href = navLinks[i].getAttribute("href");
 
+          navLinks[i].classList.remove("active");
+
           if (currentPage === href) {
             navLinks[i].classList.add("active");
-            noActiveLink = false;
           }
-
-          navLinks[i].addEventListener("click", function (event) {
-            event.preventDefault();
-
-            for (var j = 0; j < navLinks.length; j++) {
-              navLinks[j].classList.remove("active");
-            }
-
-            this.classList.add("active");
-            window.location.href = this.href;
-          });
         }
-
-        if (noActiveLink) {
-          navLinks[0].classList.add("active");
+        if (
+          currentPage === "/user_blog_listen" ||
+          currentPage === "/user_song_listen"
+        ) {
+          libraryLink.classList.add("active");
         }
       });
     </script>
