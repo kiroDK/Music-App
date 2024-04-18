@@ -1,4 +1,7 @@
-{% extends "creator_layout.html" %} {% block content %}
+{% extends "creator_layout.html" %} {% block content %} {% with messages =
+get_flashed_messages() %} {% if messages %} {% for message in messages %}
+<div class="alert alert-danger" role="alert">{{ message }}</div>
+{% endfor %} {% endif %} {% endwith %}
 <div
   style="
     display: flex;
@@ -9,10 +12,6 @@
     overflow: auto;
   "
 >
-  {% with messages = get_flashed_messages() %} {% if messages %} {% for message
-  in messages %}
-  <div class="alert alert-danger" role="alert">{{ message }}</div>
-  {% endfor %} {% endif %} {% endwith %}
   <br />
   <div class="">
     <div class="col 12 text-center">
@@ -24,9 +23,11 @@
         <thead>
           <tr>
             <th>Audio Upload ID</th>
+            <th>Title</th>
             <th>Audio</th>
             <th>Category</th>
             <th>Created At</th>
+            <th>Edit</th>
             <th>Play</th>
             <th>Delete</th>
           </tr>
@@ -38,9 +39,18 @@
             <td>{{r[1]}}</td>
             <td>{{r[2]}}</td>
             <td>{{r[3]}}</td>
+            <td>{{r[4]}}</td>
+            <td>
+              <a href="/creator_edit_audio"
+                ><img
+                  src="../static/icons/edit.ico"
+                  style="height: 25px; width: 25px"
+                  alt="edit-icon"
+              /></a>
+            </td>
             <td>
               <audio controls>
-                <source src="../static/audioblog/{{r[1]}}" type="audio/wav" />
+                <source src="../static/audioblog/{{r[2]}}" type="audio/wav" />
                 Your browser does not support the audio element.
               </audio>
             </td>

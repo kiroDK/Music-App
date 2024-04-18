@@ -15,7 +15,7 @@
   {% endfor %} {% endif %} {% endwith %} {%for r in record%}
   <div class="text-center">
     <form
-      action="/creator_edit_audio?audio_id={{request.args.get}}"
+      action="/creator_edit_audio?audio_id={{request.args.get('audio_id')}}"
       method="post"
       enctype="multipart/form-data"
     >
@@ -33,9 +33,6 @@
           <button type="submit" class="btn btn-warning">Update</button>
         </div>
       </div>
-      <button class="btn btn-primary btn-block mb-4" type="submit">
-        Upload
-      </button>
     </form>
     {%endfor%}
   </div>

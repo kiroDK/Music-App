@@ -99,24 +99,24 @@ class CreatorOperation:
         return
 
 
-    def creator_audioblog(self,audio,audiotext,category):   #for inserting data into table
+    def creator_audioblog(self,audio,audiotext,category,title):   #for inserting data into table
             db=self.connection()
             mycursor = db.cursor()
-            sq = "insert into audioblog (creator_id,audio,audiotext,category,created_at) values (%s,%s,%s,%s,%s)"
+            sq = "insert into audioblog (creator_id,audio,audiotext,category,title,created_at) values (%s,%s,%s,%s,%s,%s)"
             created_at = datetime.now()
-            record=[session['creator_id'],audio,audiotext,category,created_at]
+            record=[session['creator_id'],audio,audiotext,category,title,created_at]
             mycursor.execute(sq,record)
             db.commit()    # insert, delete, display
             mycursor.close() # close
             db.close() # close
             return
 
-    def creator_audio_upload(self,path,category):
+    def creator_audio_upload(self,path,category,title):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "insert into audio_upload (creator_id,audio,category,created_at) values (%s,%s,%s,%s)"
+        sq = "insert into audio_upload (creator_id,audio,category,title,created_at) values (%s,%s,%s,%s,%s)"
         created_at = datetime.now()
-        record=[session['creator_id'],path,category,created_at]
+        record=[session['creator_id'],path,category,title,created_at]
         mycursor.execute(sq,record)
         db.commit()
         mycursor.close()
@@ -127,7 +127,7 @@ class CreatorOperation:
     def get_creator_recorded(self,creator_id):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "select creator_id, audioblog_id, audio, audiotext,category, created_at from audioblog where creator_id = (%s)"
+        sq = "select audioblog_id, title , audio, audiotext,category, created_at from audioblog where creator_id = (%s)"
         record = [session['creator_id']]
         mycursor.execute(sq,record)
         rows = mycursor.fetchall()
@@ -138,7 +138,7 @@ class CreatorOperation:
     def get_creator_uploaded(self,creator_id):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "select audio_upload_id, audio, category, created_at from audio_upload where creator_id = (%s)"
+        sq = "select audio_upload_id,title, audio, category, created_at from audio_upload where creator_id = (%s)"
         record = [session['creator_id']]
         mycursor.execute(sq,record)
         rows = mycursor.fetchall()
@@ -159,11 +159,11 @@ class CreatorOperation:
         return
 
 
-    def get_edit_audio(self,creator_id):
+    def creator_edit_audio(self,audio_id):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "select category from audio_upload where audio_id = (%s)"
-        record = [session['creator_id']]
+        sq = "select category from audio_upload where audio_upload_id = (%s)"
+        record = [audio_id]
         mycursor.execute(sq,record)
         rows = mycursor.fetchall()
         mycursor.close()
@@ -174,9 +174,10 @@ class CreatorOperation:
     def get_audio_update(self,audio_id,category):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "update audio_upload set category=%s where audio_upload_id = (%s)"
+        sq = "update audio_upload set category= %s where audio_upload_id = (%s)"
         record = [category,audio_id]
         mycursor.execute(sq,record)
+        db.commit()
         rows = mycursor.fetchall()
         mycursor.close()
         db.close()

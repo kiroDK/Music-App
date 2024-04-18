@@ -214,6 +214,30 @@ def user_blog_listen():
         return "You must be logged in to delete your account"
 
 
+@app.route('/user_blog_view', methods=['GET','POST'])
+def user_blog_view():
+    if('user_name' in session):
+        if(request.method=='POST'):
+            audio_id=request.args.get('audio_id')
+            record=userobj.user_blog_view(audio)
+            return render_template("user_blog_view.html",record=record)
+    else:
+        flash("You cannot access this page ... please login in to continue")
+        return redirect(url_for('user_login'))
+
+
+@app.route('/user_blog_search', methods=['GET','POST'])
+def user_blog_search():
+    if 'user_name' in session:
+        if(request.method == 'POST'):
+            title = request.form['title']
+            record = userobj.user_blog_search(title)
+            return render_template('user_blog_listen.html',record=record)
+    else:
+       flash( "You must be logged in to delete your account")
+       return redirect(url_for('user_login'))
+
+
 
 #------------------For Testing---------------------------#
 @app.route("/test")
@@ -388,6 +412,10 @@ def creator_audioblog():
         if(request.method=='GET'):
             lang=request.args.get('lang')
             category=request.args.get('category')
+            title = request.args.get('title')
+            # print("GET Request - Category:", category)
+            # print("GET Request - Title:", title)
+
             try:
                 audiolist = voice(lang)
                 d = datetime.now()
@@ -396,18 +424,18 @@ def creator_audioblog():
                 with open('static/audioblog/'+audio,'wb') as f:
                     f.write(audiolist[1].get_wav_data())
             
-                creatorobj.creator_audioblog(audio,audiolist[0],category)
+                creatorobj.creator_audioblog(audio,audiolist[0],category,title)
                 flash("Your audio blog recorded successfully!!")
                 return redirect(url_for("creator_audio"))
-            except  Exception as e :
+            except Exception as e :
                 flash (str(e))
-                flash("Voice is not recognized")
+                # flash("Voice is not recognized")
                 return redirect(url_for("creator_audio"))
 
         else:
             category = request.form['category']
-            title= request.form['title']
             audio = request.files['audio']
+            title= request.form['title']
             p = audio.filename
             if(p==''):
                 flash("audio must be uploaded!!")
@@ -417,7 +445,7 @@ def creator_audioblog():
             t = int(round(d.timestamp()))
             path = str(t)+'.'+p.split('.')[-1]
             audio.save("static/audioblog/"+path)
-            creatorobj.creator_audio_upload(path,category)
+            creatorobj.creator_audio_upload(path,category,title)
 
             flash("Your audioblog is uploaded successfully!!")
             return redirect(url_for("creator_audio"))
@@ -478,13 +506,13 @@ def creator_delete_audioblog():
 def creator_edit_audio():
     if('creator_id' in session):
         if(request.method=='GET'):
-            audioblog_id=int(request.args.get('audioblog_id'))
+            audio_id=request.args.get('audio_id')
             record=creatorobj.creator_edit_audio(audio_id)
             return render_template("creator_edit_audio.html",record=record)
         else:
             audio_id=request.args.get('audio_id')
-            # category =  request.from
-            creatorobj.creator_edit_audio(audio_id)
+            category = request.form['category']
+            creatorobj.get_audio_update(audio_id,category)
             flash("Category changed successfully")
             return redirect(url_for("creator_uploaded"))
     else:

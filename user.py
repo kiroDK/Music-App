@@ -130,10 +130,33 @@ class UserOperation:
     def user_blog_listen(self):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "select creator_id, audioblog_id, audio, audiotext, created_at from audioblog"
+        sq = "select creator_id,audio, title, audiotext, category from audioblog"
         mycursor.execute(sq)
         row = mycursor.fetchall()
         mycursor.close()
         db.close()
         return row
+
+    def user_blog_search(self,title):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "select creator_id,audio, title, audiotext, category from audioblog where title = %s"
+        record = [title]
+        mycursor.execute(sq,record)
+        row = mycursor.fetchall()
+        mycursor.close()
+        db.close()
+        return row
+
+
+    def user_blog_view(self,audio_id):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "select title, category, audio, audiotext from audioblog"
+        mycursor.execute(sq)
+        row = mycursor.fetchall()
+        mycursor.close()
+        db.close()
+        return row
+
 

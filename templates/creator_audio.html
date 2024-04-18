@@ -26,7 +26,7 @@
       function useCategory(link) {
         let cat = document.getElementById("category").value;
         let title = document.getElementById("title").value;
-        link.href = link.href + "&category=" + cat;
+        link.href = link.href + "&category=" + cat + "&title=" + title;
       }
     </script>
   </a>
@@ -37,6 +37,18 @@
       method="post"
       enctype="multipart/form-data"
     >
+      <div class="row m-3">
+        <div class="col">
+          <label for="">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            placeholder="Enter Title.."
+          />
+        </div>
+      </div>
       <div class="row text-center">
         <div class="col text-center">
           <select id="category" name="category" class="form-select w-100">

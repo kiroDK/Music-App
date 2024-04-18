@@ -1,0 +1,23 @@
+{% extends "user_layout.html" %} {% block content %} {% for r in record %}
+
+<div class="container m-5 p-5">
+  <div class="class">
+    <div class="col-4">Title:</div>
+    <div class="col-8">{{r[0]}}</div>
+  </div>
+  <div class="row">
+    <div class="col-4">Play Blog:</div>
+    <div class="col-8">
+      <audio controls>
+        <source src="../static/audioblog/{{r[2]}}" type="audio/wav" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">Blog:</div>
+    <div class="col-8">{{r[2]}}</div>
+  </div>
+</div>
+
+{% endfor %} {% endblock %}
