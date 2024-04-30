@@ -8,11 +8,20 @@ from myrandom import randomnumber
 from datetime import datetime
 from audio import voice
 import razorpay
+from dotenv import load_dotenv
+import os
 
 app=Flask(__name__)  
 app.secret_key= "df5ge4twfwef32f2"  #attribute
 
-client=razorpay.Client(auth=("rzp_test_BJKJaX9Q4oAdk6","EYsolU9DuDOYk1BshChJxUlZ"))  #razorpay
+# Load variables from .env file
+load_dotenv()
+
+# Access the variables
+razorpay_key = os.getenv("RAZORPAY_KEY")
+razorpay_secret = os.getenv("RAZORPAY_SECRET")
+
+client = razorpay.Client(auth=(razorpay_key, razorpay_secret))  #razorpay
 
 userobj = UserOperation()  # user obj
 validobj = myvalidate()  #validation object
