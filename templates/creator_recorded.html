@@ -43,7 +43,7 @@ get_flashed_messages() %} {% if messages %} {% for message in messages %}
             <td>{{r[4]}}</td>
             <td>{{r[5]}}</td>
             <td>
-              <a href="/creator_edit_audio"
+              <a href="/creator_edit_audiorecord?audioblog_id={{r[0]}}"
                 ><img
                   src="../static/icons/edit.ico"
                   style="height: 25px; width: 25px"

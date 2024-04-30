@@ -1,0 +1,91 @@
+{% extends "user_layout.html" %} {% block content %}
+
+<!-- <style>
+  .mybg {
+    background: rgb(52, 244, 221);
+    background: radial-gradient(
+      circle,
+      rgb(244, 215, 52) 0%,
+      rgba(0, 0, 0, 1) 100%
+    );
+  }
+</style> -->
+
+<div class="container m-5 p-5 rounded mybg h5">
+  <form action="/user_add_playlist" method="post">
+    <div class="row py-2">
+      <div class="col-4 text-warning">Choose Playlist:</div>
+      <div class="col-4">
+        <select name="playlist_name" class="form-select" id="">
+          {% for r in record %}
+          <option>{{r[0]}}</option>
+          {% endfor %}
+        </select>
+        <input
+          type="hidden"
+          name="audio_id"
+          value="{{request.args.get('audio_id')}}"
+        />
+      </div>
+      <div class="col-4">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          New
+        </button>
+      </div>
+    </div>
+    <div class="row py-2">
+      <div class="col-8">
+        <button type="submit" class="btn btn-warning">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- modal start -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Playlist Name</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          action="/user_add_playlist_collection?audio_id={{request.args.get('audio_id')}}"
+          method="post"
+        >
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label"
+              >New Playlist Name:</label
+            >
+            <input
+              type="text"
+              name="playlist_name"
+              class="form-control"
+              id="recipient-name"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

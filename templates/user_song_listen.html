@@ -55,7 +55,36 @@
               Your browser does not support the audio element.
             </audio>
           </td>
-          <td><button class="btn btn-warning">+Playlist</button></td>
+          <td><button type="button" class="btn btn-warning launch" data-bs-toggle="modal" data-bs-target="#Modal{{r[0]}}">+ Playlist</button></td>
+          <!-- playlist modal -->
+         <div class="modal fade" id="Modal{{r[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="\user_add_playlist" method="post">
+                  <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Playlist:</label>
+                    <select name="playlist_name" id="">
+                      <option>Old Collection</option>
+                      <option>Bhakti Collection</option>
+                    </select>
+                  </div>
+                 <input name="audio_id" type="hidden" value="{{r[0]}}">
+               
+              </div>
+              <div class="modal-footer">
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+         <!-- end playlist modal -->
         </tr>
         {% endfor %} {% else%}
         <tr>

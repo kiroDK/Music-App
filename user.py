@@ -1,5 +1,6 @@
 import mysql.connector
 from flask import session
+from datetime import datetime
 
 class UserOperation:
     def connection(self):  #to connect the user
@@ -130,7 +131,7 @@ class UserOperation:
     def user_blog_listen(self):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "select creator_id,audio, title, audiotext, category from audioblog"
+        sq = "select audioblog_id, title, category, audio, audiotext from audioblog"
         mycursor.execute(sq)
         row = mycursor.fetchall()
         mycursor.close()
@@ -149,11 +150,12 @@ class UserOperation:
         return row
 
 
-    def user_blog_view(self,audio_id):
+    def user_blog_view(self,audioblog_id):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "select title, category, audio, audiotext from audioblog"
-        mycursor.execute(sq)
+        sq = "select audioblog_id, title, category, audio, audiotext from audioblog where audioblog_id = %s"
+        record = [audioblog_id]
+        mycursor.execute(sq,record)
         row = mycursor.fetchall()
         mycursor.close()
         db.close()
@@ -182,4 +184,61 @@ class UserOperation:
         db.close()
         return row
 
+    
+    def user_playlist_collection(self):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "select playlist_name from playlist_collection where user_name = %s"
+        record = [session['user_name']]
+        mycursor.execute(sq,record)
+        row = mycursor.fetchall()
+        mycursor.close()
+        db.close()
+        return row
 
+    def user_add_playlist_collection(self,playlist_name):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "insert into playlist_collection (user_name,playlist_name) values(%s,%s)"
+        record = [session['user_name'],playlist_name]
+        mycursor.execute(sq,record)
+        db.commit()
+        mycursor.close()
+        db.close()
+        return
+
+
+    def user_add_playlist(self,playlist_name,audio_id):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "insert into playlist (username, playlist_name, audio_id) values (%s, %s, %s)"
+        record = [session['user_name'],playlist_name,audio_id]
+        mycursor.execute(sq,record)
+        db.commit()
+        mycursor.close()
+        db.close()
+        return
+
+    
+    def get_blog_review(self,audio_id):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "select comment,star,created_at,user_name from review where audio_id=%s"
+        record=[audio_id]
+        mycursor.execute(sq,record)
+        row=mycursor.fetchall()
+        mycursor.close()
+        db.close()
+        return row
+
+
+    def submit_blog_review(self,audio_id,comment,star):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "insert into review(audio_id,user_name,comment,star,created_at)values(%s,%s,%s,%s,%s)"
+        record=[audio_id,session['user_name'],comment,star,datetime.now()]
+        mycursor.execute(sq,record)
+        db.commit()
+        mycursor.close()
+        db.close()
+        return

@@ -7,9 +7,12 @@ from myemail import Email
 from myrandom import randomnumber
 from datetime import datetime
 from audio import voice
+import razorpay
 
 app=Flask(__name__)  
 app.secret_key= "df5ge4twfwef32f2"  #attribute
+
+client=razorpay.Client(auth=("rzp_test_BJKJaX9Q4oAdk6","EYsolU9DuDOYk1BshChJxUlZ"))  #razorpay
 
 userobj = UserOperation()  # user obj
 validobj = myvalidate()  #validation object
@@ -214,16 +217,18 @@ def user_blog_listen():
         return "You must be logged in to delete your account"
 
 
-@app.route('/user_blog_view', methods=['GET','POST'])
+@app.route('/user_blog_view',methods=['GET','POST'])
 def user_blog_view():
     if('user_name' in session):
-        if(request.method=='POST'):
+        if(request.method=='GET'):
             audio_id=request.args.get('audio_id')
-            record=userobj.user_blog_view(audio)
-            return render_template("user_blog_view.html",record=record)
+            record=userobj.user_blog_view(audio_id)
+            record2=userobj.get_blog_review(audio_id)
+            return render_template("user_blog_view.html",record=record,record2=record2)
     else:
-        flash("You cannot access this page ... please login in to continue")
+        flash("you can't access this page..please login to continue")
         return redirect(url_for('user_login'))
+
 
 
 @app.route('/user_blog_search', methods=['GET','POST'])
@@ -259,6 +264,60 @@ def user_song_search():
     else:
        flash( "You must be logged in to delete your account")
        return redirect(url_for('user_login'))
+
+
+@app.route('/user_add_playlist', methods=['GET','POST'])
+def user_add_playlist():
+    if 'user_name' in session:
+        if(request.method == 'GET'):
+            record = userobj.user_playlist_collection()
+            return render_template('user_add_playlist.html',record=record)
+        else:
+            playlist_name = request.form['playlist_name']
+            audio_id = request.form['audio_id']
+            userobj.user_add_playlist(playlist_name,audio_id)
+            return redirect(url_for('user_add_playlist'))
+    else:
+       flash( "You must be logged to perform this action")
+       return redirect(url_for('user_login'))
+
+
+@app.route('/user_add_playlist_collection', methods=['GET','POST'])
+def user_add_playlist_collection():
+    if 'user_name' in session:
+        if(request.method == 'POST'):
+            playlist_name = request.form['playlist_name']
+            audio_id = request.args.get('audio_id')
+            userobj.user_add_playlist_collection(playlist_name)
+            return redirect(url_for('user_add_playlist', audio_id=audio_id))
+    else:
+       flash( "You must be logged to perform this action")
+       return redirect(url_for('user_login'))
+
+
+@app.route('/submit_blog_review',methods=['GET','POST'])
+def submit_blog_review():
+    if('user_name' in session):
+        if(request.method=='POST'):
+            audio_id=request.form['audio_id']
+            comment=request.form['comment']
+            star=request.form['rating']
+            userobj.submit_blog_review(audio_id,comment,star)
+            return redirect(url_for('user_blog_view',audio_id=audio_id))
+    else:
+        flash("you can't access this page..please login to continue")
+        return redirect(url_for('user_login'))
+
+
+@app.route('/user_get_blogs',methods=['GET','POST'])
+def user_get_blogs():
+    if('user_name' in session):
+        if(request.method=='GET'):
+            record=userobj.user_blog_listen()
+            return render_template("user_blog_listen.html",record=record)
+    else:
+        flash("you can't access this page..please login to continue")
+        return redirect(url_for('user_login'))
 
 
 #------------------For Testing---------------------------#
@@ -524,19 +583,38 @@ def creator_delete_audioblog():
         return redirect(url_for("creator_login"))
 
 
-@app.route("/creator_edit_audio",methods=['GET','POST'])
-def creator_edit_audio():
+@app.route("/creator_edit_audioupload",methods=['GET','POST'])
+def creator_edit_audioupload():
+    audio_upload_id=request.args.get('audio_upload_id')
     if('creator_id' in session):
         if(request.method=='GET'):
-            audio_id=request.args.get('audio_id')
-            record=creatorobj.creator_edit_audio(audio_id)
-            return render_template("creator_edit_audio.html",record=record)
+            # print(session['creator_id'])    
+            record=creatorobj.creator_edit_audioupload(int(audio_upload_id))
+            return render_template("creator_edit_audioupload.html",record=record)
         else:
-            audio_id=request.args.get('audio_id')
             category = request.form['category']
-            creatorobj.get_audio_update(audio_id,category)
+            title   = request.form['title']
+            creatorobj.get_audioupload_update(audio_upload_id,category,title)
             flash("Category changed successfully")
             return redirect(url_for("creator_uploaded"))
+    else:
+        flash("Please Login to Access the Page...Please login")
+        return redirect(url_for("creator_login"))
+
+
+@app.route("/creator_edit_audiorecord",methods=['GET','POST'])
+def creator_edit_audiorecord():
+    audioblog_id=request.args.get('audioblog_id')
+    if('creator_id' in session):
+        if(request.method=='GET'):    
+            record=creatorobj.creator_edit_audiorecord(int(audioblog_id))
+            return render_template("creator_edit_audiorecord.html",record=record)
+        else:
+            category = request.form['category']
+            title   = request.form['title']
+            creatorobj.get_audiorecord_update(audioblog_id,category,title)
+            flash("Category changed successfully")
+            return redirect(url_for("creator_recorded"))
     else:
         flash("Please Login to Access the Page...Please login")
         return redirect(url_for("creator_login"))

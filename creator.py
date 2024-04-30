@@ -159,11 +159,11 @@ class CreatorOperation:
         return
 
 
-    def creator_edit_audio(self,audio_id):
+    def creator_edit_audioupload(self,audio_upload_id):
         db = self.connection()
         mycursor = db.cursor()
         sq = "select category from audio_upload where audio_upload_id = (%s)"
-        record = [audio_id]
+        record = [audio_upload_id]
         mycursor.execute(sq,record)
         rows = mycursor.fetchall()
         mycursor.close()
@@ -171,11 +171,36 @@ class CreatorOperation:
         return rows
 
 
-    def get_audio_update(self,audio_id,category):
+    def get_audioupload_update(self,audio_upload_id,category,title):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "update audio_upload set category= %s where audio_upload_id = (%s)"
-        record = [category,audio_id]
+        sq = "update audio_upload set category= %s, title =%s  where audio_upload_id = (%s)"
+        record = [category,title,audio_upload_id]
+        mycursor.execute(sq,record)
+        db.commit()
+        rows = mycursor.fetchall()
+        mycursor.close()
+        db.close()
+        return rows
+
+
+    def creator_edit_audiorecord(self,audioblog_id):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "select category from audioblog where audioblog_id = (%s)"
+        record = [audioblog_id]
+        mycursor.execute(sq,record)
+        rows = mycursor.fetchall()
+        mycursor.close()
+        db.close()
+        return rows
+
+
+    def get_audiorecord_update(self,audioblog_id,category,title):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "update audioblog set category= %s, title =%s  where audioblog_id = (%s)"
+        record = [category,title,audioblog_id]
         mycursor.execute(sq,record)
         db.commit()
         rows = mycursor.fetchall()

@@ -15,7 +15,7 @@
   {% endfor %} {% endif %} {% endwith %} {%for r in record%}
   <div class="text-center">
     <form
-      action="/creator_edit_audio?audio_id={{request.args.get('audio_id')}}"
+      action="/creator_edit_audioupload?audio_upload_id={{request.args.get('audio_upload_id')}}"
       method="post"
       enctype="multipart/form-data"
     >
@@ -28,6 +28,9 @@
             <option {% if(r[0]=='Raw') %} selected{% endif %}>Raw</option>
             <option {% if(r[0]=='Classic') %} selected{% endif %}>Classic</option>
           </select>
+        </div>
+        <div class="my-2">
+          <input type="text" class="from-control" name="title" placeholder="Title" id="">
         </div>
         <div class="col">
           <button type="submit" class="btn btn-warning">Update</button>
