@@ -1,27 +1,4 @@
 {% extends "user_layout.html" %} {% block content %}
-<!-- {% for r in record %}
-
-<div class="container m-5 p-5 text-white">
-  <div class="class">
-    <div class="col-4">Title:</div>
-    <div class="col-8">{{r[1]}}</div>
-  </div>
-  <div class="row">
-    <div class="col-4">Play Blog:</div>
-    <div class="col-8">
-      <audio controls>
-        <source src="../static/audioblog/{{r[3]}}" type="audio/wav" />
-        Your browser does not support the audio element.
-      </audio>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-4">Blog:</div>
-    <div class="col-8">{{r[4]}}</div>
-  </div>
-</div>
-
-{% endfor %}  -->
 
 <style>
   #post {
@@ -39,14 +16,47 @@
     width: 50%;
   }
   .comment {
-    border: 1px solid rgba(16, 46, 46, 1);
-    background-color: rgba(16, 46, 46, 0.973);
+    /* border: 1px solid rgba(27, 49, 163, 0.8); */
+    background: hsl(218, 41%, 15%);
+    background-image: radial-gradient(
+      650px circle at 0% 0%,
+      hsl(218, 41%, 35%) 15%,
+      hsl(218, 41%, 30%) 35%,
+      hsl(218, 41%, 20%) 75%,
+      hsl(218, 41%, 19%) 80%,
+      transparent 100%
+    );
     float: left;
     border-radius: 5px;
     padding-left: 40px;
     padding-right: 30px;
     padding-top: 10px;
+    position: relative;
   }
+
+  .comment::before,
+  .comment::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: inherit;
+    border-radius: inherit;
+    filter: blur(10px);
+  }
+
+  .comment::before {
+    z-index: -1;
+    opacity: 0.5; /* Adjust the opacity to control the fading effect */
+  }
+
+  .comment::after {
+    z-index: -2;
+    opacity: 0.2; /* Adjust the opacity to control the fading effect */
+  }
+
   .comment h4,
   .comment span,
   .darker h4,
@@ -78,14 +88,30 @@
   }
   .form-group input,
   .form-group textarea {
-    background-color: black;
+    background-color: white;
     border: 1px solid rgba(16, 46, 46, 1);
     border-radius: 12px;
   }
 
   form {
-    border: 1px solid rgba(16, 46, 46, 1);
-    background-color: rgba(16, 46, 46, 0.973);
+    /* border: 1px solid rgba(16, 46, 46, 1); */
+    background: hsl(218, 41%, 15%);
+    background-image: radial-gradient(
+        650px circle at 0% 0%,
+        hsl(218, 41%, 35%) 15%,
+        hsl(218, 41%, 30%) 35%,
+        hsl(218, 41%, 20%) 75%,
+        hsl(218, 41%, 19%) 80%,
+        transparent 100%
+      ),
+      radial-gradient(
+        1250px circle at 100% 100%,
+        hsl(218, 41%, 45%) 15%,
+        hsl(218, 41%, 30%) 35%,
+        hsl(218, 41%, 20%) 75%,
+        hsl(218, 41%, 19%) 80%,
+        transparent 100%
+      );
     border-radius: 5px;
     padding: 20px;
   }
@@ -127,18 +153,85 @@
 
   .rating:hover > input:checked ~ label:before {
     opacity: 0.4;
+
+    .comment-container {
+      background: hsl(218, 41%, 15%);
+      background-image: radial-gradient(
+          650px circle at 0% 0%,
+          hsl(218, 41%, 35%) 15%,
+          hsl(218, 41%, 30%) 35%,
+          hsl(218, 41%, 20%) 75%,
+          hsl(218, 41%, 19%) 80%,
+          transparent 100%
+        ),
+        radial-gradient(
+          1250px circle at 100% 100%,
+          hsl(218, 41%, 45%) 15%,
+          hsl(218, 41%, 30%) 35%,
+          hsl(218, 41%, 20%) 75%,
+          hsl(218, 41%, 19%) 80%,
+          transparent 100%
+        );
+      float: left;
+      border-radius: 15px;
+      padding-left: 40px;
+      padding-right: 30px;
+      padding-top: 10px;
+      position: relative;
+    }
+
+    .comment-container::before,
+    .comment-container::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: inherit;
+      border-radius: inherit;
+      filter: blur(10px);
+    }
+
+    .comment-container::before {
+      z-index: -1;
+      opacity: 0.5; /* Adjust the opacity to control the fading effect */
+    }
+
+    .comment-container::after {
+      z-index: -2;
+      opacity: 0.2; /* Adjust the opacity to control the fading effect */
+    }
   }
 </style>
 
 {% for r in record %}
 <div
-  class="container m-5 p-5 text-white"
+  class="container m-4 p-4 text-white comment-container"
   style="
-    background: linear-gradient(
-      90deg,
-      rgba(80, 58, 180, 0.8660714285714286) 0%,
-      rgba(252, 69, 69, 1) 88%
-    );
+    background: hsl(218, 41%, 15%);
+    background-image: radial-gradient(
+        650px circle at 0% 0%,
+        hsl(218, 41%, 35%) 15%,
+        hsl(218, 41%, 30%) 35%,
+        hsl(218, 41%, 20%) 75%,
+        hsl(218, 41%, 19%) 80%,
+        transparent 100%
+      ),
+      radial-gradient(
+        s 1250px circle at 100% 100%,
+        hsl(218, 41%, 45%) 15%,
+        hsl(218, 41%, 30%) 35%,
+        hsl(218, 41%, 20%) 75%,
+        hsl(218, 41%, 19%) 80%,
+        transparent 100%
+      );
+    float: left;
+    border-radius: 15px;
+    padding-left: 40px;
+    padding-right: 30px;
+    padding-top: 10px;
+    position: relative;
   "
 >
   <div class="row">
@@ -175,7 +268,7 @@
           {% if record2 %} {% for r in record2 %}
           <div class="comment mt-4 text-justify float-left w-100">
             <img
-              src="https://i.imgur.com/yTFUilP.jpg"
+              src="/static/icons/profile-user.png"
               alt=""
               class="rounded-circle"
               width="40"
@@ -247,9 +340,9 @@
                 id=""
                 msg
                 cols="30"
-                rows="5"
-                class="form-control text-white"
-                style="background-color: black"
+                rows="3"
+                class="form-control text-black"
+                style="background-color: white"
               ></textarea>
             </div>
             <div class="form-group mt-4 mb-5">
@@ -282,17 +375,6 @@
               name="audio_id"
               value="{{request.args.get('audio_id')}}"
             />
-
-            <div class="form-group d-inline-block">
-              <p class="text-secondary">
-                Your comment along with your profile picture will be displayed
-                on the website.
-              </p>
-            </div>
-            <div class="form-inline">
-              <input type="checkbox" name="check" id="checkbx" class="mr-1" />
-              <label for="subscribe">Subscribe me to the newlettter</label>
-            </div>
             <div class="form-group">
               <button type="submit" id="post" class="btn">Post Comment</button>
             </div>

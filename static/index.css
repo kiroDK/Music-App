@@ -30,7 +30,7 @@ body {
 
 .container::before {
     content: "";
-    background: url(images/netflix-bg.jpg) no-repeat center center/cover;
+    /* background: url(images/desktop-wallpaper-blue-music-notes-backgrounds-music-background.jpg) no-repeat center center/cover; */
     position: absolute;
     height: 100%;
     width: 100%;
