@@ -1,5 +1,5 @@
-{% extends "base.html" %} {% block title %}This is a title{% endblock title %}
-{% block body %}
+{% extends "base.html" %} {% block title %}User Login{% endblock title %} {%
+block body %}
 <head>
   <link rel="stylesheet" href="../static/signup-login-page.css" />
 </head>
@@ -7,10 +7,17 @@
   <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
     <div class="row gx-lg-5 align-items-center mb-5">
       <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-        <a href="/" style="text-decoration: none;"><h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-          Cloud Beats<br />
-          <span style="color: hsl(218, 81%, 75%)">Tailored music on the go.</span>
-        </h1></a>
+        <a href="/" style="text-decoration: none"
+          ><h1
+            class="my-5 display-5 fw-bold ls-tight"
+            style="color: hsl(218, 81%, 95%)"
+          >
+            Cloud Beats<br />
+            <span style="color: hsl(218, 81%, 75%)"
+              >Tailored music on the go.</span
+            >
+          </h1></a
+        >
         <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
           Experience Your Soundtrack: Where Music Meets Magic
         </p>
@@ -33,7 +40,7 @@
           <div class="card-body px-4 py-5 px-md-5">
             <form action="/user_login" method="post">
               <!-- 2 column grid layout with text inputs for the first and last names -->
-              <div class="text-center h4 py-3">LogIn</div>
+              <div class="text-center h4 py-3">User LogIn</div>
 
               <!-- Username input -->
               <div class="form-outline mb-4">

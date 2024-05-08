@@ -238,6 +238,18 @@ def user_blog_view():
         flash("you can't access this page..please login to continue")
         return redirect(url_for('user_login'))
 
+@app.route('/user_song_view',methods=['GET','POST'])
+def user_song_view():
+    if('user_name' in session):
+        if(request.method=='GET'):
+            audio_id=request.args.get('audio_id')
+            record=userobj.user_song_view(audio_id)
+            record2=userobj.get_song_review(audio_id)
+            return render_template("user_song_view.html",record=record,record2=record2)
+    else:
+        flash("you can't access this page..please login to continue")
+        return redirect(url_for('user_login'))
+
 
 
 @app.route('/user_blog_search', methods=['GET','POST'])
@@ -246,7 +258,7 @@ def user_blog_search():
         if(request.method == 'POST'):
             title = request.form['title']
             record = userobj.user_blog_search(title)
-            return render_template('user_blog_listen.html',record=record,title=title)
+            return render_template('user_blog_listen.html',record=record)
     else:
        flash( "You must be logged in to delete your account")
        return redirect(url_for('user_login'))
@@ -313,6 +325,20 @@ def submit_blog_review():
             star=request.form['rating']
             userobj.submit_blog_review(audio_id,comment,star)
             return redirect(url_for('user_blog_view',audio_id=audio_id))
+    else:
+        flash("you can't access this page..please login to continue")
+        return redirect(url_for('user_login'))
+
+
+@app.route('/submit_song_review',methods=['GET','POST'])
+def submit_song_review():
+    if('user_name' in session):
+        if(request.method=='POST'):
+            audio_id=request.form['audio_id']
+            comment=request.form['comment']
+            star=request.form['rating']
+            userobj.submit_song_review(audio_id,comment,star)
+            return redirect(url_for('user_song_view',audio_id=audio_id))
     else:
         flash("you can't access this page..please login to continue")
         return redirect(url_for('user_login'))
@@ -630,6 +656,9 @@ def creator_edit_audiorecord():
 
 
 
+@app.route("/about_us")
+def about_us():
+    return render_template("about_us.html")
 
 
 
@@ -638,4 +667,4 @@ def not_found(e):
     return "NOT FOUND"
 
 if __name__ == '__main__':             
-    app.run(debug = True)   
+    app.run(host='192.168.29.222',debug = True,port=5001)   

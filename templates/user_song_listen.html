@@ -14,12 +14,12 @@
   <br />
   <div class="container text-center">
     <form action="/user_song_search" method="post">
-      <div class="row">
+      <div class="row" style="margin: auto">
         <div class="col-10">
           <input
             name="title"
             type="text"
-            class="from-control rounded-pill"
+            class="from-control rounded-pill w-75 text-center"
             placeholder="Search Blog.."
             value="{{title}}"
             required
@@ -40,20 +40,26 @@
           <th>Audio</th>
           <th>Category</th>
           <th>Play</th>
+          <th>View</th>
           <th>+ Playlist</th>
         </tr>
       </thead>
       <tbody>
         {% if record %} {% for r in record %}
         <tr>
-          <td>{{ r[0] }}</td>
           <td>{{ r[1] }}</td>
           <td>{{ r[2] }}</td>
+          <td>{{ r[3] }}</td>
           <td>
             <audio controls>
-              <source src="../static/audioblog/{{r[1]}}" type="audio/wav" />
+              <source src="../static/audioblog/{{r[2]}}" type="audio/wav" />
               Your browser does not support the audio element.
             </audio>
+          </td>
+          <td>
+            <a href="/user_song_view?audio_id={{r[0]}}"
+              ><button class="btn btn-danger">View</button></a
+            >
           </td>
           <td><button type="button" class="btn btn-warning launch" data-bs-toggle="modal" data-bs-target="#Modal{{r[0]}}">+ Playlist</button></td>
           <!-- playlist modal -->
@@ -61,13 +67,13 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                <h1 class="modal-title fs-5 text-black" id="exampleModalLabel">New message</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form action="\user_add_playlist" method="post">
                   <div class="mb-3">
-                    <label for="recipient-name" class="col-form-label">Playlist:</label>
+                    <label for="recipient-name" class="col-form-label text-black">Playlist:</label>
                     <select name="playlist_name" id="">
                       <option>Old Collection</option>
                       <option>Bhakti Collection</option>

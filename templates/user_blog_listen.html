@@ -37,7 +37,7 @@
       <thead>
         <tr>
           <th>Title</th>
-          <th>Audio</th>
+          <th>Audiotext</th>
           <th>Category</th>
           <th>Play</th>
           <th>View</th>
@@ -48,7 +48,7 @@
         {% if record %} {% for r in record %}
         <tr>
           <td>{{ r[1] }}</td>
-          <td>{{ r[3] }}</td>
+          <td>{{ r[4] }}</td>
           <td>{{ r[2] }}</td>
           <td>
             <audio controls>

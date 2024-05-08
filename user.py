@@ -141,7 +141,8 @@ class UserOperation:
     def user_blog_search(self,title):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "select creator_id,audio, title, audiotext, category from audioblog where title like %s"
+        # sq = "select creator_id,audio, title, audiotext, category from audioblog where title like %s"
+        sq = "select audioblog_id, title, category, audio, audiotext from audioblog where title like %s"
         record = ["%" + title + "%"]
         mycursor.execute(sq,record)
         row = mycursor.fetchall()
@@ -161,11 +162,22 @@ class UserOperation:
         db.close()
         return row
 
+    def user_song_view(self,audio_id):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "select audio_upload_id, title, category, audio from audio_upload where audio_upload_id = %s"
+        record = [audio_id]
+        mycursor.execute(sq,record)
+        row = mycursor.fetchall()
+        mycursor.close()
+        db.close()
+        return row
+
 
     def user_song_listen(self):
         db = self.connection()
         mycursor = db.cursor()
-        sq = "select title, audio,category from audio_upload"
+        sq = "select audio_upload_id,title, audio,category from audio_upload"
         mycursor.execute(sq)
         row = mycursor.fetchall()
         mycursor.close()
@@ -231,8 +243,30 @@ class UserOperation:
         db.close()
         return row
 
+    def get_song_review(self,audio_id):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "select comment,star,created_at,user_name from review where audio_id=%s"
+        record=[audio_id]
+        mycursor.execute(sq,record)
+        row=mycursor.fetchall()
+        mycursor.close()
+        db.close()
+        return row
+
 
     def submit_blog_review(self,audio_id,comment,star):
+        db = self.connection()
+        mycursor = db.cursor()
+        sq = "insert into review(audio_id,user_name,comment,star,created_at)values(%s,%s,%s,%s,%s)"
+        record=[audio_id,session['user_name'],comment,star,datetime.now()]
+        mycursor.execute(sq,record)
+        db.commit()
+        mycursor.close()
+        db.close()
+        return
+
+    def submit_song_review(self,audio_id,comment,star):
         db = self.connection()
         mycursor = db.cursor()
         sq = "insert into review(audio_id,user_name,comment,star,created_at)values(%s,%s,%s,%s,%s)"

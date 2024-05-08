@@ -1,0 +1,42 @@
+{% extends "user_layout.html" %} {% block content %}
+<!-- <div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: whitesmoke;
+  "
+> -->
+<div class="row position-absolute top-50 start-50 translate-middle text-white">
+  <div class="col-12 text-center">
+    <h1>About Us</h1>
+  </div>
+  <div class="col-12 text-center">
+    <p>
+      Welcome to CloudBeats, where music meets innovation. We are a passionate
+      team of developers, designers, and music enthusiasts dedicated to creating
+      an unparalleled music experience for our users. With a focus on
+      user-centric design and cutting-edge technology, we strive to redefine the
+      way you discover, stream, and engage with music. At CloudBeats, we believe
+      that music has the power to inspire, uplift, and connect people from all
+      walks of life. Whether you're a casual listener or an aspiring artist, our
+      platform is designed to cater to your needs and preferences. From curated
+      playlists and top 40 hits to personalized recommendations and artist
+      showcases, we offer a diverse range of features to enhance your music
+      journey. Our mission is to empower music lovers and creators alike,
+      providing a platform where talent thrives and communities flourish. By
+      fostering collaboration, creativity, and inclusivity, we aim to make music
+      more accessible and enjoyable for everyone. Join us on this exciting
+      journey as we continue to innovate, evolve, and reimagine the
+      possibilities of music in the digital age. Together, let's create moments,
+      share stories, and celebrate the universal language of music. Welcome to
+      CloudBeats, where every beat tells a story.
+    </p>
+  </div>
+</div>
+<!-- </div> -->
+{% endblock %} {% block user_buttons %}
+<a class="nav-link" href="/user_profile"> {{session["user_fname"]}}</a>
+<a class="nav-link" href="/user_logout">Logout</a>
+{% endblock %}
